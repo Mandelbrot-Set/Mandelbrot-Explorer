@@ -49,6 +49,7 @@ class Framework(Frame):
         self.draw()
 
     def shift_view(self, event):
+        print('shift_view')
         self.fractal.shift_view(event)
         self.draw()
 
@@ -79,6 +80,7 @@ class Framework(Frame):
         self.palette = palette
 
     def change_palette(self, event):
+        print('change_palette')
         self.set_palette()
         self.pixelColors = []
         self.get_colors()
