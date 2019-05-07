@@ -1,3 +1,4 @@
+# coding: utf-8
 import argparse
 import math
 import time
@@ -70,16 +71,16 @@ class Framework(Frame):
         :return:
         """
         palette = [(0, 0, 0)]
-        redb = 2 * math.pi / (random.randint(0, 128) + 128)
-        redc = 256 * random.random()
-        greenb = 2 * math.pi / (random.randint(0, 128) + 128)
-        greenc = 256 * random.random()
-        blueb = 2 * math.pi / (random.randint(0, 128) + 128)
-        bluec = 256 * random.random()
+        red_b = 2 * math.pi / (random.randint(0, 128) + 128)
+        red_c = 256 * random.random()
+        green_b = 2 * math.pi / (random.randint(0, 128) + 128)
+        green_c = 256 * random.random()
+        blue_b = 2 * math.pi / (random.randint(0, 128) + 128)
+        blue_c = 256 * random.random()
         for i in range(256):
-            r = clamp(int(256 * (0.5 * math.sin(redb * i + redc) + 0.5)))
-            g = clamp(int(256 * (0.5 * math.sin(greenb * i + greenc) + 0.5)))
-            b = clamp(int(256 * (0.5 * math.sin(blueb * i + bluec) + 0.5)))
+            r = clamp(int(256 * (0.5 * math.sin(red_b * i + red_c) + 0.5)))
+            g = clamp(int(256 * (0.5 * math.sin(green_b * i + green_c) + 0.5)))
+            b = clamp(int(256 * (0.5 * math.sin(blue_b * i + blue_c) + 0.5)))
             palette.append((r, g, b))
         self.palette = palette
 
