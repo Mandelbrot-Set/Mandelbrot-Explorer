@@ -33,7 +33,7 @@ class Framework(Frame):
         self.pixelColors = []
         self.img = None
         self.save = save
-        self.draw()
+        self.draw(True)
 
         # fix the issue: clicking on window's title bar will generate event
         self.canvas.bind("<Control-1>", self.zoom_in)
@@ -57,17 +57,17 @@ class Framework(Frame):
     def zoom_in(self, event):
         print('Tip: zoom_in')
         self.fractal.zoom_in(event)
-        self.draw()
+        self.draw(True)
 
     def zoom_out(self, event):
         print('Tip: zoom_out')
         self.fractal.zoom_out(event)
-        self.draw()
+        self.draw(True)
 
     def shift_view(self, event):
         print('Tip: shift_view')
         self.fractal.shift_view(event)
-        self.draw()
+        self.draw(True)
 
     def change_palette(self, event):
         print('change_palette')
@@ -82,19 +82,33 @@ class Framework(Frame):
         print('Tip: save_image')
         self.img.save("pictures/{}.png".format(time.strftime("%Y-%m-%d-%H:%M:%S")), "PNG", optimize=True)
 
-    def draw(self):
+    def draw(self, color_flag=False):
         """
         绘制图片主功能
         :return:
         """
         print('-' * 40)
         start = time.time()
-        self.fractal.get_pixels()
-        self.get_colors()
-        self.draw_pixels()
-        self.canvas.create_image(0, 0, image=self.background, anchor=NW)
-        self.canvas.pack(fill=BOTH, expand=1)
-        print("执行时间 {} 秒".format(round(time.time()-start, 2)))
+        if color_flag is True:
+            print('color_flag is True')
+            img = self.fractal.get_color_pixels()
+            self.background = ImageTk.PhotoImage(img.resize((self.canvasW, self.canvasH)))
+            self.canvas.create_image(0, 0, image=self.background, anchor=NW)
+            self.canvas.pack(fill=BOTH, expand=1)
+        else:
+            self.fractal.get_pixels()
+            print("get_pixels执行时间 {} 秒".format(round(time.time() - start, 2)))
+            start = time.time()
+            self.get_colors()
+            print("get_colors执行时间 {} 秒".format(round(time.time() - start, 2)))
+            start = time.time()
+            self.draw_pixels()
+            print("draw_pixels执行时间 {} 秒".format(round(time.time() - start, 2)))
+            start = time.time()
+            self.canvas.create_image(0, 0, image=self.background, anchor=NW)
+            self.canvas.pack(fill=BOTH, expand=1)
+
+        print("create_image执行时间 {} 秒".format(round(time.time()-start, 2)))
 
     def set_palette(self):
         """

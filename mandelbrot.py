@@ -1,7 +1,7 @@
 # coding: utf-8
 from multiprocessing import Pool
 import opt
-
+from PIL import Image, ImageTk
 
 class Mandelbrot:
     def __init__(self, canvas_w, canvas_h, x=-0.75, y=0, m=1.5, iterations=None,
@@ -73,6 +73,22 @@ class Mandelbrot:
         self.xmin = self.xCenter - self.xDelta
         self.ymin = self.yCenter - self.yDelta
 
+    def get_color_pixels(self):
+        """
+        根据指定的分辨率w，h生成w, h 范围内所有像素点的像素信息，
+        这函数被框架的 draw 调用。
+        :return: 返回像素列表
+        """
+        img = Image.new('RGB', (self.w, self.h), "black")
+        pix = img.load()  # create the pixel map
+
+        for x in range(self.w):
+            for y in range(self.h):
+                _, _, i = self.get_escape_time(x, y)
+                pix[x, y] = (i << 21) + (i << 10) + i * 8
+
+        return img
+
     def get_pixels(self):
         """
         根据指定的分辨率w，h生成w, h 范围内所有像素点的像素信息，
@@ -109,6 +125,8 @@ class Mandelbrot:
 
         # 采用 Cython 优化迭代效率
         ii = opt.get_escape_time(c, self.iterations)
+
+        # ii = opt.julia_escape_time(z, complex(-0.7, 0.27015), 255)
 
         # 疑惑感觉在迭代Z，不是mandelbrot，感觉是Julia集
         # for i in range(1, self.iterations):
