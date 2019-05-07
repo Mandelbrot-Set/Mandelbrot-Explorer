@@ -1,14 +1,22 @@
 # Interactive-Python-Mandelbrot
 A clickable interactive mandelbrot set, made with Python 3, PIL, and Tkinter. Uses multiprocessing, colour palette is randomly generated.
 
+# 问题
+1、渲染效率太低 做一次放大或缩小需要30秒到1分钟多钟，取决机器性能
+
+# Fix
+1. 调整了窗口大小
+2. 调整了交互的按键操作，避免鼠标点击按钮引起的卡顿
+3. 增加了鼠标位置监控事件
+
 ## Usage
 1. Install required modules with `pip install -r requirements.txt`.
 2. Run the program with `python3 framework.py`
-3. Left-click the image where you want to zoom in
-4. Right-click the image to zoom out
-5. Control+left-click to shift the view to that point
-6. Control+right-click to change the image colour-palette
-6. Middle-click to save the image
+3. Control+left-click the image where you want to zoom in
+4. Control+right-click the image to zoom out
+5. Left-click to change the image colour-palette
+6. Right-click to save the image
+7. Left-click drag to shit view
 
 ## Commandline options
     -h, --help               Command-line help dialogue.

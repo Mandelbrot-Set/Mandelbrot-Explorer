@@ -19,7 +19,7 @@ class Framework(Frame):
         self.palette = None
         self.background = None
         if None in {img_width, img_height}:
-            img_width, img_height = h, h
+            img_width, img_height = int(h*1.6), h
         if img_width > img_height:
             ratio = img_height/img_width
             self.canvasW, self.canvasH = h, round(h*ratio)
@@ -35,35 +35,65 @@ class Framework(Frame):
         self.save = save
         self.draw()
 
-        parent.bind("<Button-1>", self.zoom_in)
-        parent.bind("<Button-3>", self.zoom_out)
-        parent.bind("<Control-1>", self.shift_view)
-        parent.bind("<Control-3>", self.change_palette)
-        parent.bind("<Button-2>", self.save_image)
+        # fix the issue: clicking on window's title bar will generate event
+        self.canvas.bind("<Control-1>", self.zoom_in)
+        self.canvas.bind("<Control-2>", self.zoom_out)
+        self.canvas.bind("<B1-Motion>", self.shift_view)
+        self.canvas.bind("<Button-1>", self.change_palette)
+        self.canvas.bind("<Button-2>", self.save_image)
+        self.canvas.bind("<Motion>", self.mouse_pos)
+
+        # parent.bind("<Button-1>", self.zoom_in)
+        # parent.bind("<Double-Button-1>", self.zoom_out)
+        # parent.bind("<Control-1>", self.shift_view)
+        # parent.bind("<Control-3>", self.change_palette)
+        # parent.bind("<Button-2>", self.save_image)
+
+    def mouse_pos(self, event):
+        # print("鼠标状态：", event.type)
+        print("鼠标位置：", event.x, event.y)
 
     def zoom_in(self, event):
+        print('Tip: zoom_in')
         self.fractal.zoom_in(event)
         self.draw()
 
     def zoom_out(self, event):
+        print('Tip: zoom_out')
         self.fractal.zoom_out(event)
         self.draw()
 
     def shift_view(self, event):
-        print('shift_view')
+        print('Tip: shift_view')
         self.fractal.shift_view(event)
         self.draw()
 
+    def change_palette(self, event):
+        print('change_palette')
+        self.set_palette()
+        self.pixelColors = []
+        self.get_colors()
+        self.draw_pixels()
+        self.canvas.create_image(0, 0, image=self.background, anchor=NW)
+        self.canvas.pack(fill=BOTH, expand=1)
+
+    def save_image(self, event):
+        print('Tip: save_image')
+        self.img.save("./{}.png".format(time.strftime("%Y-%m-%d-%H:%M:%S")), "PNG", optimize=True)
+
     def draw(self):
-        print('-' * 20)
+        """
+        绘制图片主功能
+        :return:
+        """
+        print('-' * 40)
         start = time.time()
         self.fractal.get_pixels()
         self.get_colors()
         self.draw_pixels()
         self.canvas.create_image(0, 0, image=self.background, anchor=NW)
         self.canvas.pack(fill=BOTH, expand=1)
-        print("Process took {} seconds".format(round(time.time()-start, 2)))
-        print("Current coordinates (x, y, m): {}, {}, {}".format(self.fractal.xCenter, self.fractal.yCenter, self.fractal.delta))
+        print("执行时间 {} 秒".format(round(time.time()-start, 2)))
 
     def set_palette(self):
         """
@@ -83,15 +113,6 @@ class Framework(Frame):
             b = clamp(int(256 * (0.5 * math.sin(blue_b * i + blue_c) + 0.5)))
             palette.append((r, g, b))
         self.palette = palette
-
-    def change_palette(self, event):
-        print('change_palette')
-        self.set_palette()
-        self.pixelColors = []
-        self.get_colors()
-        self.draw_pixels()
-        self.canvas.create_image(0, 0, image=self.background, anchor=NW)
-        self.canvas.pack(fill=BOTH, expand=1)
 
     def get_colors(self):
         """
@@ -118,9 +139,6 @@ class Framework(Frame):
         photo_img = ImageTk.PhotoImage(img.resize((self.canvasW, self.canvasH)))
         self.background = photo_img
 
-    def save_image(self, event):
-        self.img.save("./{}.png".format(time.strftime("%Y-%m-%d-%H:%M:%S")), "PNG", optimize=True)
-
 
 def clamp(x):
     return max(0, min(x, 255))
@@ -128,7 +146,7 @@ def clamp(x):
 
 def main():
     master = Tk()
-    height = round(master.winfo_screenheight()*0.9)
+    height = round(master.winfo_screenheight())
     parser = argparse.ArgumentParser(description='Generate the Mandelbrot set')
     parser.add_argument('-i', '--iterations', type=int, help='The number of iterations done for each pixel. '
                                                              'Higher is more accurate but slower.')

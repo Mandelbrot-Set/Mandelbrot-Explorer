@@ -42,6 +42,7 @@ class Mandelbrot:
     def shift_view(self, event):
         self.xCenter = translate(event.x*self.xScaleFactor, 0, self.w, self.xmin, self.xmax)
         self.yCenter = translate(event.y*self.yScaleFactor, self.h, 0, self.ymin, self.ymax)
+        print("当前坐标 (x, y, m): {}, {}, {}".format(self.xCenter, self.yCenter, self.delta))
         self.xmax = self.xCenter + self.xDelta
         self.ymax = self.yCenter + self.yDelta
         self.xmin = self.xCenter - self.xDelta
@@ -53,6 +54,7 @@ class Mandelbrot:
         self.xDelta /= self.zoomFactor
         self.yDelta /= self.zoomFactor
         self.delta /= self.zoomFactor
+        print("当前坐标 (x, y, m): {}, {}, {}".format(self.xCenter, self.yCenter, self.delta))
         self.xmax = self.xCenter + self.xDelta
         self.ymax = self.yCenter + self.yDelta
         self.xmin = self.xCenter - self.xDelta
@@ -64,6 +66,7 @@ class Mandelbrot:
         self.xDelta *= self.zoomFactor
         self.yDelta *= self.zoomFactor
         self.delta *= self.zoomFactor
+        print("当前坐标 (x, y, m): {}, {}, {}".format(self.xCenter, self.yCenter, self.delta))
         self.xmax = self.xCenter + self.xDelta
         self.ymax = self.yCenter + self.yDelta
         self.xmin = self.xCenter - self.xDelta
