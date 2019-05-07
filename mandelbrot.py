@@ -1,10 +1,11 @@
 # coding: utf-8
 from multiprocessing import Pool
+import opt
 
 
 class Mandelbrot:
     def __init__(self, canvas_w, canvas_h, x=-0.75, y=0, m=1.5, iterations=None,
-                 w=None, h=None, zoom_factor=0.1, multi=True):
+                 w=None, h=None, zoom_factor=0.1, multi=False):
         """
         初始化实例
         :param canvas_w:
@@ -83,6 +84,7 @@ class Mandelbrot:
             for y in range(self.h):
                 coordinates.append((x, y))
         if self.multi:
+            print("Using multi...")
             pool = Pool()
             self.pixels = pool.starmap(self.get_escape_time, coordinates)
             pool.close()
@@ -104,13 +106,17 @@ class Mandelbrot:
         re = translate(x, 0, self.w, self.xmin, self.xmax)
         im = translate(y, 0, self.h, self.ymax, self.ymin)
         z, c = complex(re, im), complex(re, im)
-        # 疑惑感觉在迭代Z，不是mandelbrot，感觉是Julia集
-        for i in range(1, self.iterations):
-            if abs(z) > 2:
-                return x, y, i
-            z = z*z + c
 
-        return x, y, 0
+        # 采用 Cython 优化迭代效率
+        ii = opt.get_escape_time(c, self.iterations)
+
+        # 疑惑感觉在迭代Z，不是mandelbrot，感觉是Julia集
+        # for i in range(1, self.iterations):
+        #     if abs(z) > 2:
+        #         return x, y, i
+        #     z = z*z + c
+
+        return x, y, ii
 
 
 def translate(value, left_min, left_max, right_min, right_max):

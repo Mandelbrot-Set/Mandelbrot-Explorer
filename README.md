@@ -1,8 +1,8 @@
 # Interactive-Python-Mandelbrot
 A clickable interactive mandelbrot set, made with Python 3, PIL, and Tkinter. Uses multiprocessing, colour palette is randomly generated.
 
-# 问题
-1、渲染效率太低 做一次放大或缩小需要30秒到1分钟多钟，取决机器性能
+# 性能优化
+1、采用Cython优化迭代部分代码，性能提高了10倍， 并暂时取消了多进程方式，也许多进程方式使用不当，反而不及不用多进程方式
 
 # Fix
 1. 调整了窗口大小

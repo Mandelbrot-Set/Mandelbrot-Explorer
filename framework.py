@@ -51,7 +51,8 @@ class Framework(Frame):
 
     def mouse_pos(self, event):
         # print("鼠标状态：", event.type)
-        print("鼠标位置：", event.x, event.y)
+        # print("鼠标位置：", event.x, event.y)
+        pass
 
     def zoom_in(self, event):
         print('Tip: zoom_in')
@@ -79,7 +80,7 @@ class Framework(Frame):
 
     def save_image(self, event):
         print('Tip: save_image')
-        self.img.save("./{}.png".format(time.strftime("%Y-%m-%d-%H:%M:%S")), "PNG", optimize=True)
+        self.img.save("pictures/{}.png".format(time.strftime("%Y-%m-%d-%H:%M:%S")), "PNG", optimize=True)
 
     def draw(self):
         """
@@ -156,7 +157,7 @@ def main():
     parser.add_argument('-wi', '--width', type=int, help='The width of the image.')
     parser.add_argument('-he', '--height', type=int, help='The width of the image.')
     parser.add_argument('-s', '--save', action='store_true', help='Save the generated image.')
-    parser.add_argument('-nm', '--noMulti', action='store_false', help="Don't use multiprocessing.")
+    parser.add_argument('-nm', '--noMulti', action='store_true', help="Don't use multiprocessing.")
     args = parser.parse_args()
     if None not in [args.x, args.y, args.magnification]:
         render = Framework(master, height, x=args.x, y=args.y, m=args.magnification, multi=args.noMulti,
