@@ -3,7 +3,9 @@ A clickable interactive mandelbrot set, made with Python 3, PIL, and Tkinter. Us
 
 # 性能优化
 1、采用Cython优化迭代部分代码，性能提高了10倍， 并暂时取消了多进程方式，也许多进程方式使用不当，反而不及不用多进程方式
+
 2、增加了朱丽亚集合的绘制，同样进行了迭代的优化
+
 3、初步优化了对颜色对处理
 
 # Fix
