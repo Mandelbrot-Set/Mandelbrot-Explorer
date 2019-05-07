@@ -65,6 +65,10 @@ class Framework(Frame):
         print("Current coordinates (x, y, m): {}, {}, {}".format(self.fractal.xCenter, self.fractal.yCenter, self.fractal.delta))
 
     def set_palette(self):
+        """
+        返回256个颜色值的数组列表
+        :return:
+        """
         palette = [(0, 0, 0)]
         redb = 2 * math.pi / (random.randint(0, 128) + 128)
         redc = 256 * random.random()
@@ -89,12 +93,20 @@ class Framework(Frame):
         self.canvas.pack(fill=BOTH, expand=1)
 
     def get_colors(self):
+        """
+        根据迭代次数返回对应的像素颜色
+        :return:
+        """
         pixel_colors = []
         for p in self.fractal.pixels:
             pixel_colors.append(self.palette[p[2] % 256])
         self.pixelColors = pixel_colors
 
     def draw_pixels(self):
+        """
+        生成图片
+        :return:
+        """
         img = Image.new('RGB', (self.fractal.w, self.fractal.h), "black")
         pixels = img.load()  # create the pixel map
         for index, p in enumerate(self.fractal.pixels):
@@ -102,11 +114,11 @@ class Framework(Frame):
         self.img = img
         if self.save:
             self.save_image(None)
-        photoimg = ImageTk.PhotoImage(img.resize((self.canvasW, self.canvasH)))
-        self.background = photoimg
+        photo_img = ImageTk.PhotoImage(img.resize((self.canvasW, self.canvasH)))
+        self.background = photo_img
 
     def save_image(self, event):
-        self.img.save("output/{}.png".format(time.strftime("%Y-%m-%d-%H:%M:%S")), "PNG", optimize=True)
+        self.img.save("./{}.png".format(time.strftime("%Y-%m-%d-%H:%M:%S")), "PNG", optimize=True)
 
 
 def clamp(x):

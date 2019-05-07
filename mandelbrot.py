@@ -69,6 +69,11 @@ class Mandelbrot:
         self.ymin = self.yCenter - self.yDelta
 
     def get_pixels(self):
+        """
+        根据指定的分辨率w，h生成w, h 范围内所有像素点的像素信息，
+        这函数被框架的 draw 调用。
+        :return: 返回像素列表
+        """
         coordinates = []
         for x in range(self.w):
             for y in range(self.h):
@@ -86,17 +91,28 @@ class Mandelbrot:
             self.pixels = pixels
 
     def get_escape_time(self, x, y):
+        """
+        返回 x,y 值和迭代次数，迭代次数越少，发散速度越快
+        :param x: 复数的实部
+        :param y: 复数的虚部
+        :return:
+        """
         re = translate(x, 0, self.w, self.xmin, self.xmax)
         im = translate(y, 0, self.h, self.ymax, self.ymin)
         z, c = complex(re, im), complex(re, im)
+        # 疑惑感觉在迭代Z，不是mandelbrot，感觉是Julia集
         for i in range(1, self.iterations):
             if abs(z) > 2:
                 return x, y, i
             z = z*z + c
+
         return x, y, 0
 
 
 def translate(value, left_min, left_max, right_min, right_max):
+    """"
+    把传入的value影射到right_min, right_max之间到一个值，只被get_escape_time调用
+    """
     left_span = left_max - left_min
     right_span = right_max - right_min
     value_scaled = float(value - left_min) / float(left_span)
