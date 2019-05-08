@@ -6,17 +6,19 @@ import random
 from tkinter import *
 from PIL import Image, ImageTk
 from mandelbrot import Mandelbrot
+import opt
 
 
 class Framework(Frame):
-    def __init__(self, parent, h, x=-0.75, y=0, m=1.5, iterations=None, img_width=None,
-                 img_height=None, save=False, multi=True):
+    def __init__(self, parent, h, x=-0.75, y=0, m=1, iterations=None, img_width=None,
+                 img_height=None, save=False, color_palette=False, spec_set='J'):
         Frame.__init__(self, parent)
         self.parent = parent
-        self.parent.title("Mandelbrot")
+        self.parent.title("Mandelbrot && Julia")
         self.pack(fill=BOTH, expand=1)
         self.canvas = Canvas(self)
         self.palette = None
+        self.color_palette = color_palette
         self.background = None
         if None in {img_width, img_height}:
             img_width, img_height = int(h*1.6), h
@@ -28,12 +30,11 @@ class Framework(Frame):
             self.canvasW, self.canvasH = round(h*ratio), h
 
         self.fractal = Mandelbrot(self.canvasW, self.canvasH, x=x, y=y, m=m, iterations=iterations,
-                                  w=img_width, h=img_height, multi=multi)
+                                  w=img_width, h=img_height, color_palette=color_palette, spec_set=spec_set)
         self.set_palette()
-        self.pixelColors = []
         self.img = None
         self.save = save
-        self.draw(True)
+        self.draw(color_palette)
 
         # fix the issue: clicking on window's title bar will generate event
         self.canvas.bind("<Control-1>", self.zoom_in)
@@ -43,12 +44,6 @@ class Framework(Frame):
         self.canvas.bind("<Button-2>", self.save_image)
         self.canvas.bind("<Motion>", self.mouse_pos)
 
-        # parent.bind("<Button-1>", self.zoom_in)
-        # parent.bind("<Double-Button-1>", self.zoom_out)
-        # parent.bind("<Control-1>", self.shift_view)
-        # parent.bind("<Control-3>", self.change_palette)
-        # parent.bind("<Button-2>", self.save_image)
-
     def mouse_pos(self, event):
         # print("鼠标状态：", event.type)
         # print("鼠标位置：", event.x, event.y)
@@ -57,26 +52,25 @@ class Framework(Frame):
     def zoom_in(self, event):
         print('Tip: zoom_in')
         self.fractal.zoom_in(event)
-        self.draw(True)
+        self.draw(self.color_palette)
 
     def zoom_out(self, event):
         print('Tip: zoom_out')
         self.fractal.zoom_out(event)
-        self.draw(True)
+        self.draw(self.color_palette)
 
     def shift_view(self, event):
         print('Tip: shift_view')
         self.fractal.shift_view(event)
-        self.draw(True)
+        self.draw()
 
     def change_palette(self, event):
-        print('change_palette')
-        self.set_palette()
-        self.pixelColors = []
-        self.get_colors()
-        self.draw_pixels()
-        self.canvas.create_image(0, 0, image=self.background, anchor=NW)
-        self.canvas.pack(fill=BOTH, expand=1)
+        if self.color_palette:
+            print('change_palette')
+            self.set_palette()
+            self.draw_pixels()
+            self.canvas.create_image(0, 0, image=self.background, anchor=NW)
+            self.canvas.pack(fill=BOTH, expand=1)
 
     def save_image(self, event):
         print('Tip: save_image')
@@ -87,24 +81,21 @@ class Framework(Frame):
         绘制图片主功能
         :return:
         """
-        print('-' * 40)
+        print('-' * 60)
         start = time.time()
+
         if color_flag is True:
-            print('color_flag is True')
-            img = self.fractal.get_color_pixels()
-            self.background = ImageTk.PhotoImage(img.resize((self.canvasW, self.canvasH)))
-            self.canvas.create_image(0, 0, image=self.background, anchor=NW)
-            self.canvas.pack(fill=BOTH, expand=1)
-        else:
-            self.fractal.get_pixels()
-            print("get_pixels执行时间 {} 秒".format(round(time.time() - start, 2)))
-            start = time.time()
-            self.get_colors()
-            print("get_colors执行时间 {} 秒".format(round(time.time() - start, 2)))
+            self.fractal.get_color_pixels(color_flag)
+            print("get_color_pixels {} 秒".format(round(time.time() - start, 2)))
             start = time.time()
             self.draw_pixels()
             print("draw_pixels执行时间 {} 秒".format(round(time.time() - start, 2)))
             start = time.time()
+            self.canvas.create_image(0, 0, image=self.background, anchor=NW)
+            self.canvas.pack(fill=BOTH, expand=1)
+        else:
+            self.img = self.fractal.get_color_pixels(color_flag)
+            self.background = ImageTk.PhotoImage(self.img.resize((self.canvasW, self.canvasH)))
             self.canvas.create_image(0, 0, image=self.background, anchor=NW)
             self.canvas.pack(fill=BOTH, expand=1)
 
@@ -115,43 +106,38 @@ class Framework(Frame):
         返回256个颜色值的数组列表
         :return:
         """
-        palette = [(0, 0, 0)]
-        red_b = 2 * math.pi / (random.randint(0, 128) + 128)
-        red_c = 256 * random.random()
-        green_b = 2 * math.pi / (random.randint(0, 128) + 128)
-        green_c = 256 * random.random()
-        blue_b = 2 * math.pi / (random.randint(0, 128) + 128)
-        blue_c = 256 * random.random()
-        for i in range(256):
-            r = clamp(int(256 * (0.5 * math.sin(red_b * i + red_c) + 0.5)))
-            g = clamp(int(256 * (0.5 * math.sin(green_b * i + green_c) + 0.5)))
-            b = clamp(int(256 * (0.5 * math.sin(blue_b * i + blue_c) + 0.5)))
-            palette.append((r, g, b))
-        self.palette = palette
-
-    def get_colors(self):
-        """
-        根据迭代次数返回对应的像素颜色
-        :return:
-        """
-        pixel_colors = []
-        for p in self.fractal.pixels:
-            pixel_colors.append(self.palette[p[2] % 256])
-        self.pixelColors = pixel_colors
+        if self.color_palette:
+            print('Color palette used!')
+            self.palette = [(0, 0, 0)]
+            red_b = 2 * math.pi / (random.randint(0, 128) + 128)
+            red_c = 256 * random.random()
+            green_b = 2 * math.pi / (random.randint(0, 128) + 128)
+            green_c = 256 * random.random()
+            blue_b = 2 * math.pi / (random.randint(0, 128) + 128)
+            blue_c = 256 * random.random()
+            for i in range(256):
+                r = clamp(int(256 * (0.5 * math.sin(red_b * i + red_c) + 0.5)))
+                g = clamp(int(256 * (0.5 * math.sin(green_b * i + green_c) + 0.5)))
+                b = clamp(int(256 * (0.5 * math.sin(blue_b * i + blue_c) + 0.5)))
+                self.palette.append((r, g, b))
+        else:
+            print('Color palette not used!')
 
     def draw_pixels(self):
         """
         生成图片
         :return:
         """
-        img = Image.new('RGB', (self.fractal.w, self.fractal.h), "black")
-        pixels = img.load()  # create the pixel map
-        for index, p in enumerate(self.fractal.pixels):
-            pixels[int(p[0]), int(p[1])] = self.pixelColors[index]
-        self.img = img
+        self.img = Image.new('RGB', (self.fractal.w, self.fractal.h), "black")
+        pixels = self.img.load()  # create the pixel map
+
+        opt.get_colors(pixels, self.fractal.pixels, self.palette)
+        # for index, p in enumerate(self.fractal.pixels):
+        #     pixels[int(p[0]), int(p[1])] = self.palette[p[2] % 256]
+        #
         if self.save:
             self.save_image(None)
-        photo_img = ImageTk.PhotoImage(img.resize((self.canvasW, self.canvasH)))
+        photo_img = ImageTk.PhotoImage(self.img.resize((self.canvasW, self.canvasH)))
         self.background = photo_img
 
 
@@ -171,15 +157,16 @@ def main():
     parser.add_argument('-wi', '--width', type=int, help='The width of the image.')
     parser.add_argument('-he', '--height', type=int, help='The width of the image.')
     parser.add_argument('-s', '--save', action='store_true', help='Save the generated image.')
-    parser.add_argument('-nm', '--noMulti', action='store_true', help="Don't use multiprocessing.")
+    parser.add_argument('-c', '--color_palette', action='store_false', help="if color palette is used.")
+    parser.add_argument('-spec_set', type=str, help='J for Julia, M for mandelbrot. default is M')
     args = parser.parse_args()
     if None not in [args.x, args.y, args.magnification]:
-        render = Framework(master, height, x=args.x, y=args.y, m=args.magnification, multi=args.noMulti,
+        render = Framework(master, height, x=args.x, y=args.y, m=args.magnification, color_palette=args.color_palette,
                            iterations=args.iterations, img_width=args.width, img_height=args.height, save=args.save)
     else:
         if not all(arg is None for arg in [args.x, args.y, args.magnification]):
             print("Arguments ignored. Please provide all of x, y, & m.")
-        render = Framework(master, height, multi=args.noMulti, iterations=args.iterations,
+        render = Framework(master, height, color_palette=args.color_palette, iterations=args.iterations,
                            img_width=args.width, img_height=args.height, save=args.save)
     master.geometry("{}x{}".format(render.canvasW, render.canvasH))
     master.mainloop()

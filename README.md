@@ -1,5 +1,8 @@
 # Interactive-Python-Mandelbrot
 A clickable interactive mandelbrot set, made with Python 3, PIL, and Tkinter. Uses multiprocessing, colour palette is randomly generated.
+# 问题
+1、还不是很清楚取值的规律？
+
 
 # 性能优化
 1、采用Cython优化迭代部分代码，性能提高了10倍， 并暂时取消了多进程方式，也许多进程方式使用不当，反而不及不用多进程方式
@@ -31,7 +34,8 @@ A clickable interactive mandelbrot set, made with Python 3, PIL, and Tkinter. Us
     -wi, --width             The number of pixels wide the image is.
     -he, --height            The number of pixels high the image is.
     -s, --save               Flag to save the generated image.
-    -nm, --noMulti           Flag to not use multiprocessing.
+    -c, --color_palette      Flag to use color palette.
+    -spec_set                J for Julia, M for mandelbrot. default is M
 
 ## Mandelbrot Set feature rendered by this program
 <img src="https://raw.githubusercontent.com/rosslh/Interactive-Python-Mandelbrot/master/pictures/image.png" width="100%">
