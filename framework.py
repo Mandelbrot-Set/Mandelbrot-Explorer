@@ -11,7 +11,7 @@ import opt
 
 class Framework(Frame):
     def __init__(self, parent, h, x=-0.75, y=0, m=1, iterations=None, img_width=None,
-                 img_height=None, save=False, color_palette=False, spec_set='J'):
+                 img_height=None, save=False, color_palette=False, spec_set='M'):
         Frame.__init__(self, parent)
         self.parent = parent
         self.parent.title("Mandelbrot && Julia")

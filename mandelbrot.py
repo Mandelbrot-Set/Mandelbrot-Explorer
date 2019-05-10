@@ -6,7 +6,7 @@ import opt
 
 class Mandelbrot:
     def __init__(self, canvas_w, canvas_h, x=-0.75, y=0, m=1, iterations=None,
-                 w=None, h=None, zoom_factor=0.1, color_palette=False, spec_set='J'):
+                 w=None, h=None, zoom_factor=0.01, color_palette=False, spec_set='J'):
         """
         初始化实例
         :param canvas_w:
