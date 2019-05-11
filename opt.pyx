@@ -53,9 +53,9 @@ cpdef m_loop(int w, int h, double delta, set_flag, flag, int iterations,
     for x in range(w):
         for y in range(h):
             if set_flag == 'J':
-                zx = 1.5 * (x - w / 2) / (0.5 * delta * w) + move_x
-                zy = 1.0 * (y - h / 2) / (0.5 * delta * h) + move_y
-                i = julia_escape_time(complex(zx, zy), complex(-0.7, 0.27015), 255)
+                zx = 1.5 * (x - w / 2) / (0.5 * delta * w)
+                zy = 1.0 * (y - h / 2) / (0.5 * delta * h)
+                i = julia_escape_time(complex(zx, zy), complex(move_x, move_y), iterations)
             else:
                 # Mandelbrot
                 re = translate(x, 0, w, xm[0], xm[1])
