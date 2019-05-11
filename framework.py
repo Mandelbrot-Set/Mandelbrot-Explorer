@@ -10,9 +10,10 @@ import opt
 
 
 class Framework(Frame):
-    def __init__(self, parent, h, x=-0.75, y=0, m=1, iterations=None, img_width=None,
-                 img_height=None, save=False, color_palette=False, spec_set='M'):
+    def __init__(self, parent, h, x=-0.75, y=0, m=1, iterations=None, img_width=6000,
+                 img_height=4000, save=True, color_palette=False, spec_set='M'):
         Frame.__init__(self, parent)
+        self.zoom_num = 0
         self.parent = parent
         self.parent.title("Mandelbrot && Julia")
         self.pack(fill=BOTH, expand=1)
@@ -20,8 +21,10 @@ class Framework(Frame):
         self.palette = None
         self.color_palette = color_palette
         self.background = None
+
         if None in {img_width, img_height}:
             img_width, img_height = int(h*1.6), h
+
         if img_width > img_height:
             ratio = img_height/img_width
             self.canvasW, self.canvasH = h, round(h*ratio)
@@ -29,6 +32,7 @@ class Framework(Frame):
             ratio = img_width/img_height
             self.canvasW, self.canvasH = round(h*ratio), h
 
+        print(img_width, img_height)
         self.fractal = Mandelbrot(self.canvasW, self.canvasH, x=x, y=y, m=m, iterations=iterations,
                                   w=img_width, h=img_height, color_palette=color_palette, spec_set=spec_set)
         self.set_palette()
@@ -51,6 +55,8 @@ class Framework(Frame):
 
     def zoom_in(self, event):
         print('Tip: zoom_in')
+        self.zoom_num += 1
+        print('放大次数:', self.zoom_num)
         self.fractal.zoom_in(event)
         self.draw(self.color_palette)
 
@@ -147,7 +153,10 @@ def clamp(x):
 
 def main():
     master = Tk()
+    width = round(master.winfo_screenwidth())
     height = round(master.winfo_screenheight())
+    print('屏幕分辨率: ({},{})'.format(width, height))
+
     parser = argparse.ArgumentParser(description='Generate the Mandelbrot set')
     parser.add_argument('-i', '--iterations', type=int, help='The number of iterations done for each pixel. '
                                                              'Higher is more accurate but slower.')
@@ -168,6 +177,8 @@ def main():
             print("Arguments ignored. Please provide all of x, y, & m.")
         render = Framework(master, height, color_palette=args.color_palette, iterations=args.iterations,
                            img_width=args.width, img_height=args.height, save=args.save)
+    # 设置窗口的大小，这里使用画布的大小进行设置，如果使用  width, height 怎会铺满屏幕，不友好。
+    # master.geometry("{}x{}".format(width, height))
     master.geometry("{}x{}".format(render.canvasW, render.canvasH))
     master.mainloop()
 
