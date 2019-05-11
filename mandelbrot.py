@@ -22,7 +22,7 @@ class Mandelbrot:
         :param spec_set: 指定画Julia还是mandelbrot, M or J
         """
         self.w, self.h = (round(canvas_w * 0.9), round(canvas_h * 0.9)) if None in {w, h} else w, h
-        self.iterations = 200 if iterations is None else iterations
+        self.iterations = 400 if iterations is None else iterations
         self.xCenter, self.yCenter = x, y
         if canvas_w > canvas_h:
             self.xDelta = m / (canvas_h / canvas_w)
@@ -96,10 +96,11 @@ class Mandelbrot:
         img = Image.new('RGB', (self.w, self.h), "black")
         pix = img.load()
 
-        move_x, move_y = 0.0, 0.0
+        move_x, move_y = -0.7, 0.27015
+        print(0.9*self.delta)
         # 注意：delta在mandelbrot绘制中没有用到，仅用在了Julia集合绘制
-        opt.m_loop(self.w, self.h, self.delta, self.set_flag, flag, self.iterations, move_x, move_y, self.pixels, pix,
-                   [self.xmin, self.xmax], [self.ymin, self.ymax])
+        opt.m_loop(self.w, self.h, self.delta, self.set_flag, flag, self.iterations, move_x, move_y,
+                   self.pixels, pix, [self.xmin, self.xmax], [self.ymin, self.ymax])
 
         if not flag:
             return img
