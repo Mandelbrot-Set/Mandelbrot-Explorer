@@ -16,7 +16,7 @@ cdef julia_escape_time(complex z, complex c, int iterations):
     cdef:
         int i = iterations
 
-    while z.real * z.real + z.imag * z.imag < 4 and i > 1:
+    while z.real * z.real + z.imag * z.imag < 4 and i > 0:
         tmp = z.real * z.real - z.imag * z.imag + c.real
         z.imag, z.real = 2.0 * z.real * z.imag + c.imag, tmp
         i -= 1

@@ -27,20 +27,25 @@ def gif(filename, array, fps=10, scale=1.0):
 
 ImageWidth = 1920
 ImageHeight = 1080
-max_iterations = 1000
+max_iterations = 400
 
 delta = 0.1
-# x_base = -1.7
-# y_base = -1.0
-# xmax, ymax = 25, 21
+x_base = -1.7
+y_base = -1.0
+xmax, ymax = 25, 21
 
-x_base = -0.7
-y_base = 0.27015
-xmax, ymax = 1, 1
+# x_base = -0.7
+# y_base = 0.27015
+# xmax, ymax = 1, 1
 
 
 def clamp(x):
     return max(0, min(x, 255))
+
+# i = 5
+# while i > 0:
+#     i -= 1
+# print(i)
 
 
 palette = [(0, 0, 0)]
@@ -56,7 +61,7 @@ for i in range(256):
     b = clamp(int(256 * (0.5 * math.sin(blue_b * i + blue_c) + 0.5)))
     palette.append((r, g, b))
 
-seqs = np.zeros([xmax*ymax] + [ImageWidth, ImageHeight] + [3])
+seqs = np.zeros([xmax*ymax] + [ImageHeight, ImageWidth] + [3])
 print(seqs.shape)
 start = time.time()
 for x in range(xmax):
@@ -75,12 +80,12 @@ for x in range(xmax):
 
         # img.save("pictures/{}_{}_{}.png".format(time.strftime("%Y-%m-%d-%H:%M:%S"), round(re, 2),
         #                                         round(rm, 2)), "PNG", optimize=True)
-        img.show()
-#         seqs[cont, :, :] = np.array(img)
-#         cont += 1
+        # img.show()
+        seqs[cont, :, :] = np.array(img)
+        cont += 1
 #
 current = round(time.time() - start, 2)
 print("执行时间 {} 秒".format(current))
-# print('Make gif.....')
-# gif('julia_gif_{}.gif'.format(current), seqs, 4)
-# print('Please check julia_gif.gif...')
+print('Make gif.....')
+gif('julia_gif_{}.gif'.format(current), seqs, 4)
+print('Please check julia_gif.gif...')
