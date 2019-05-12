@@ -2,8 +2,11 @@
 A clickable interactive mandelbrot set, made with Python 3, PIL, and Tkinter. Uses multiprocessing, colour palette is randomly generated.
 # 问题
 1、还不是很清楚取值的规律？
+
 2、复平面的区域如果在以下范围，放大的图像就不清晰了
+
 复平面区域 (3.375077994860476e-14,2.098321516541546e-14), 迭代次数:1689
+
 复平面区域 (3.375077994860476e-14,2.0971520002841706e-14), 迭代次数:1689
 
 # 性能优化
