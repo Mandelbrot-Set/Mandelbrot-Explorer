@@ -2,7 +2,9 @@
 A clickable interactive mandelbrot set, made with Python 3, PIL, and Tkinter. Uses multiprocessing, colour palette is randomly generated.
 # 问题
 1、还不是很清楚取值的规律？
-
+2、复平面的区域如果在以下范围，放大的图像就不清晰了
+复平面区域 (3.375077994860476e-14,2.098321516541546e-14), 迭代次数:1689
+复平面区域 (3.375077994860476e-14,2.0971520002841706e-14), 迭代次数:1689
 
 # 性能优化
 1、采用Cython优化迭代部分代码，性能提高了10倍， 并暂时取消了多进程方式，也许多进程方式使用不当，反而不及不用多进程方式
@@ -38,4 +40,8 @@ A clickable interactive mandelbrot set, made with Python 3, PIL, and Tkinter. Us
     -spec_set                J for Julia, M for mandelbrot. default is M
 
 ## Mandelbrot Set feature rendered by this program
-<img src="https://raw.githubusercontent.com/rosslh/Interactive-Python-Mandelbrot/master/pictures/image.png" width="100%">
+![img](pictures/2019-05-12-08:06:18.png)
+![img](pictures/2019-05-12-08:08:13.png)
+![img](pictures/2019-05-12-08:08:47.png)
+![img](pictures/2019-05-12-08:09:18.png)
+

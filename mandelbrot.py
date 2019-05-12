@@ -39,6 +39,9 @@ class Mandelbrot:
         self.zoomFactor = zoom_factor
         self.yScaleFactor = self.h / canvas_h
         self.xScaleFactor = self.w / canvas_w
+        print(x, y, self.xDelta, self.yDelta, self.xCenter, self.yCenter)
+        print(
+               "初始复平面区域 ({},{},{},{})".format(self.xmin, self.ymin, self.xmax, self.ymax))
         print("初始复平面区域 ({},{}), 迭代次数:{}".format(abs(self.xmin - self.xmax), abs(self.ymin - self.ymax),
                                                 self.iterations))
         print("图片尺寸:({},{}),画布尺寸:({},{})".format(self.w, self.h, canvas_w, canvas_h))
@@ -72,6 +75,8 @@ class Mandelbrot:
     def center(self, event):
         self.xCenter = translate(event.x * self.xScaleFactor, 0, self.w, self.xmin, self.xmax)
         self.yCenter = translate(event.y * self.yScaleFactor, self.h, 0, self.ymin, self.ymax)
+
+        return self.xCenter, self.yCenter
 
     def fuzhi(self):
         self.xmax = self.xCenter + self.xDelta
