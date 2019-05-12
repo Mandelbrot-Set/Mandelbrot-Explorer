@@ -10,7 +10,7 @@ import opt
 
 
 class Framework(Frame):
-    def __init__(self, parent, h, x=-0.1, y=0, m=1, iterations=None, img_width=6000,
+    def __init__(self, parent, h, x=-0.75, y=0, m=1, iterations=None, img_width=6000,
                  img_height=4000, save=True, color_palette=False, spec_set='M'):
         Frame.__init__(self, parent)
         self.zoom_num = 0
@@ -50,7 +50,7 @@ class Framework(Frame):
 
     def mouse_pos(self, event):
         # print("鼠标状态：", event.type)
-        print("屏幕坐标：({},{}), 复平面坐标：({})".format(event.x, event.y, self.fractal.center(event)))
+        # print("屏幕坐标：({},{}), 复平面坐标：({})".format(event.x, event.y, self.fractal.center(event)))
         pass
 
     def zoom_in(self, event):
@@ -90,20 +90,10 @@ class Framework(Frame):
         print('-' * 60)
         start = time.time()
 
-        if color_flag is True:
-            self.fractal.get_color_pixels(color_flag)
-            print("get_color_pixels {} 秒".format(round(time.time() - start, 2)))
-            start = time.time()
-            self.draw_pixels()
-            print("draw_pixels执行时间 {} 秒".format(round(time.time() - start, 2)))
-            start = time.time()
-            self.canvas.create_image(0, 0, image=self.background, anchor=NW)
-            self.canvas.pack(fill=BOTH, expand=1)
-        else:
-            self.img = self.fractal.get_color_pixels(color_flag)
-            self.background = ImageTk.PhotoImage(self.img.resize((self.canvasW, self.canvasH)))
-            self.canvas.create_image(0, 0, image=self.background, anchor=NW)
-            self.canvas.pack(fill=BOTH, expand=1)
+        self.img = self.fractal.get_color_pixels(color_flag)
+        self.background = ImageTk.PhotoImage(self.img.resize((self.canvasW, self.canvasH)))
+        self.canvas.create_image(0, 0, image=self.background, anchor=NW)
+        self.canvas.pack(fill=BOTH, expand=1)
 
         print("create_image执行时间 {} 秒".format(round(time.time()-start, 2)))
 
