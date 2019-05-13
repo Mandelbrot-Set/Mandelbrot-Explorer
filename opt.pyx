@@ -68,3 +68,17 @@ cpdef m_loop(int w, int h, double delta, set_flag, flag, int iterations,
                 pixels.append((x, y, i))
             else:
                 pix[x, y] = (i << 21) + (i << 10) + i * 8
+
+
+@cython.boundscheck(False)
+@cython.wraparound(False)
+cpdef gen_data(double xmin, double xmax, double ymin, double ymax, int width, int height, cc):
+    cdef:
+        int x, y
+        double re, im
+
+    for x in range(width):
+        for y in range(height):
+            re = translate(x, 0, width, xmin, xmax)
+            im = translate(y, 0, height, ymax, ymin)
+            cc[x][y] = complex(re, im)

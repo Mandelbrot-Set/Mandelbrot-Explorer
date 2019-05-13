@@ -1,9 +1,9 @@
 import math
 import random
 import numpy as np
-from numba import jit, guvectorize, complex64, int32
+from numba import jit, guvectorize, complex64, int32, double
 from PIL import Image
-
+import opt
 
 def get_image(n):
     r, g, b = np.frompyfunc(get_color(), 1, 3)(n)
@@ -43,17 +43,36 @@ def get_color():
 
 def mandelbrot_set(xmin, xmax, ymin, ymax, width, height, maxiter):
     # should not be repeated!
-    # re = np.linspace(xmin, xmax, width, dtype=np.float32)
-    # r1 = [translate(x, 0, width, xmin, xmax) for x in re]
-    # im = np.linspace(ymin, ymax, height, dtype=np.float32)
-    # r2 = [translate(y, 0, height, ymax, ymin) for y in im]
+    # cc = np.zeros((width, height), dtype=np.complex64)
+    # for x in range(width):
+    #     for y in range(height):
+    #         re = translate(x, 0, width, xmin, xmax)
+    #         im = translate(y, 0, height, ymax, ymin)
+    #         cc[x][y] = complex(re, im)
+    cc = np.zeros((width, height), dtype=np.complex64)
+    opt.gen_data(xmin, xmax, ymin, ymax, width, height, cc)
+    # cc = gen_data(xmin, xmax, ymin, ymax, width, height)
+    c = cc.T
 
-    re = np.linspace(xmin, xmax, width, dtype=np.float32)
-    im = np.linspace(ymin, ymax, height, dtype=np.float32)
-    c = re + im[:, None]*1j
+    # re = np.linspace(xmin, xmax, width, dtype=np.float32)
+    # im = np.linspace(ymin, ymax, height, dtype=np.float32)
+    # c = re + im[:, None]*1j
+
     n3 = mandelbrot_numpy(c, maxiter)
 
     return n3
+
+
+@jit(complex64[:](double, double, double, double, int32, int32))
+def gen_data(xmin, xmax, ymin, ymax, width, height):
+    cc = np.zeros((width, height), dtype=np.complex64)
+    for x in range(width):
+        for y in range(height):
+            re = translate(x, 0, width, xmin, xmax)
+            im = translate(y, 0, height, ymax, ymin)
+            cc[x][y] = complex(re, im)
+
+    return cc
 
 
 @jit(int32(complex64, int32))

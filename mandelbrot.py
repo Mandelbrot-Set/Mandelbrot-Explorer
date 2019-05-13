@@ -4,7 +4,7 @@ from PIL import Image
 
 
 class Mandelbrot:
-    def __init__(self, canvas_w, canvas_h, x=-0.75, y=0, m=1, iterations=None, w=None, h=None, zoom_factor=0.2,
+    def __init__(self, canvas_w, canvas_h, x=-0.75, y=0, m=1, iterations=None, w=None, h=None, zoom_factor=0.1,
                  color_palette=False, spec_set='J'):
         """
         初始化实例
@@ -85,7 +85,7 @@ class Mandelbrot:
         self.ymax = self.yCenter + self.yDelta
         self.xmin = self.xCenter - self.xDelta
         self.ymin = self.yCenter - self.yDelta
-        self.w / abs(self.xmin - self.xmax)
+        # self.w / abs(self.xmin - self.xmax)
         # 去一个合适的迭代次数
         # https://math.stackexchange.com/questions/16970/a-way-to-determine-the-ideal-number-of-maximum-iterations-for-an-arbitrary-zoom
         self.iterations = round(50 * (math.log(self.w / abs(self.xmin - self.xmax), 10) ** 1.25))
