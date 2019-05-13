@@ -1,12 +1,10 @@
 # coding: utf-8
 import argparse
-import math
 import time
-import random
 from tkinter import *
 from PIL import Image, ImageTk
 from mandelbrot import Mandelbrot
-import opt
+from utils import *
 
 
 class Framework(Frame):
@@ -35,7 +33,6 @@ class Framework(Frame):
         print(img_width, img_height)
         self.fractal = Mandelbrot(self.canvasW, self.canvasH, x=x, y=y, m=m, iterations=iterations,
                                   w=img_width, h=img_height, color_palette=color_palette, spec_set=spec_set)
-        self.set_palette()
         self.img = None
         self.save = save
         self.draw(color_palette)
@@ -43,7 +40,7 @@ class Framework(Frame):
         # fix the issue: clicking on window's title bar will generate event
         self.canvas.bind("<Control-1>", self.zoom_in)
         self.canvas.bind("<Control-2>", self.zoom_out)
-        self.canvas.bind("<B1-Motion>", self.shift_view)
+        # self.canvas.bind("<B1-Motion>", self.shift_view)
         self.canvas.bind("<Button-1>", self.change_palette)
         self.canvas.bind("<Button-2>", self.save_image)
         self.canvas.bind("<Motion>", self.mouse_pos)
@@ -54,7 +51,6 @@ class Framework(Frame):
         pass
 
     def zoom_in(self, event):
-        print('Tip: zoom_in')
         self.zoom_num += 1
         print('放大次数:', self.zoom_num)
         self.fractal.zoom_in(event)
@@ -71,12 +67,15 @@ class Framework(Frame):
         self.draw()
 
     def change_palette(self, event):
-        if self.color_palette:
-            print('change_palette')
-            self.set_palette()
-            self.draw_pixels()
+
+        if self.fractal.n is not None:
+            self.img = get_image(self.fractal.n)
+            self.background = ImageTk.PhotoImage(self.img.resize((self.canvasW, self.canvasH)))
             self.canvas.create_image(0, 0, image=self.background, anchor=NW)
             self.canvas.pack(fill=BOTH, expand=1)
+            print('change_palette')
+        else:
+            print('change_palette error!')
 
     def save_image(self, event):
         print('Tip: save_image')
@@ -89,56 +88,13 @@ class Framework(Frame):
         """
         print('-' * 60)
         start = time.time()
-
-        self.img = self.fractal.get_color_pixels(color_flag)
+        self.img = self.fractal.get_fractal(color_flag)
+        print("迭代执行时间 {} 秒".format(round(time.time() - start, 2)))
+        start = time.time()
         self.background = ImageTk.PhotoImage(self.img.resize((self.canvasW, self.canvasH)))
         self.canvas.create_image(0, 0, image=self.background, anchor=NW)
         self.canvas.pack(fill=BOTH, expand=1)
-
-        print("create_image执行时间 {} 秒".format(round(time.time()-start, 2)))
-
-    def set_palette(self):
-        """
-        返回256个颜色值的数组列表
-        :return:
-        """
-        if self.color_palette:
-            print('Color palette used!')
-            self.palette = [(0, 0, 0)]
-            red_b = 2 * math.pi / (random.randint(0, 128) + 128)
-            red_c = 256 * random.random()
-            green_b = 2 * math.pi / (random.randint(0, 128) + 128)
-            green_c = 256 * random.random()
-            blue_b = 2 * math.pi / (random.randint(0, 128) + 128)
-            blue_c = 256 * random.random()
-            for i in range(256):
-                r = clamp(int(256 * (0.5 * math.sin(red_b * i + red_c) + 0.5)))
-                g = clamp(int(256 * (0.5 * math.sin(green_b * i + green_c) + 0.5)))
-                b = clamp(int(256 * (0.5 * math.sin(blue_b * i + blue_c) + 0.5)))
-                self.palette.append((r, g, b))
-        else:
-            print('Color palette not used!')
-
-    def draw_pixels(self):
-        """
-        生成图片
-        :return:
-        """
-        self.img = Image.new('RGB', (self.fractal.w, self.fractal.h), "black")
-        pixels = self.img.load()  # create the pixel map
-
-        opt.get_colors(pixels, self.fractal.pixels, self.palette)
-        # for index, p in enumerate(self.fractal.pixels):
-        #     pixels[int(p[0]), int(p[1])] = self.palette[p[2] % 256]
-        #
-        if self.save:
-            self.save_image(None)
-        photo_img = ImageTk.PhotoImage(self.img.resize((self.canvasW, self.canvasH)))
-        self.background = photo_img
-
-
-def clamp(x):
-    return max(0, min(x, 255))
+        print("渲染时间 {} 秒".format(round(time.time() - start, 2)))
 
 
 def main():

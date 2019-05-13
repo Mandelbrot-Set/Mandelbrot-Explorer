@@ -9,6 +9,9 @@ A clickable interactive mandelbrot set, made with Python 3, PIL, and Tkinter. Us
 
 复平面区域 (3.375077994860476e-14,2.0971520002841706e-14), 迭代次数:1689
 
+# 工程化优化
+1、把公共部分统一写到　utils.py 中
+
 # 性能优化
 1、采用Cython优化迭代部分代码，性能提高了10倍， 并暂时取消了多进程方式，也许多进程方式使用不当，反而不及不用多进程方式
 
