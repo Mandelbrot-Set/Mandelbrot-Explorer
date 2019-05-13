@@ -91,7 +91,7 @@ class Framework(Frame):
 
         if color_flag is True:
             self.fractal.get_fractal(color_flag)
-            print("get_color_pixels {} 秒".format(round(time.time() - start, 2)))
+            print("get_fractal {} 秒".format(round(time.time() - start, 2)))
             start = time.time()
             self.draw_pixels()
             print("draw_pixels执行时间 {} 秒".format(round(time.time() - start, 2)))
