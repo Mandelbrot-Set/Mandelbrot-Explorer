@@ -1,6 +1,6 @@
 cimport cython
 
-cdef get_escape_time(complex c, int iterations):
+cdef int get_escape_time(complex c, int iterations):
     cdef:
         complex z = c
         int i
@@ -12,7 +12,23 @@ cdef get_escape_time(complex c, int iterations):
 
     return 0
 
-cdef julia_escape_time(complex z, complex c, int iterations):
+cdef int mandelbrot(double creal, double cimag, int maxiter):
+    cdef:
+        double real2, imag2
+        double real = 0., imag = 0.
+        int n
+
+    for n in range(maxiter):
+        real2 = real*real
+        imag2 = imag*imag
+        if real2 + imag2 > 4.0:
+            return n
+        imag = 2* real*imag + cimag
+        real = real2 - imag2 + creal
+
+    return 0
+
+cdef int julia_escape_time(complex z, complex c, int iterations):
     cdef:
         int i = iterations
 
@@ -23,7 +39,7 @@ cdef julia_escape_time(complex z, complex c, int iterations):
 
     return i
 
-cdef translate(double value, double left_min, double left_max,
+cdef double translate(double value, double left_min, double left_max,
                double right_min, double right_max):
     cdef:
         double left_span, right_span, value_scaled
@@ -60,10 +76,10 @@ cpdef m_loop(int w, int h, double delta, set_flag, flag, int iterations,
                 # Mandelbrot
                 re = translate(x, 0, w, xm[0], xm[1])
                 im = translate(y, 0, h, ym[1], ym[0])
-                z, c = complex(re, im), complex(re, im)
-    
-                # 采用 Cython 优化迭代效率
-                i = get_escape_time(c, iterations)
+                i = mandelbrot(re, im, iterations)
+                # z, c = complex(re, im), complex(re, im)
+                # i = get_escape_time(c, iterations)
+
             if flag:
                 pixels.append((x, y, i))
             else:

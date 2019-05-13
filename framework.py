@@ -50,11 +50,10 @@ class Framework(Frame):
 
     def mouse_pos(self, event):
         # print("鼠标状态：", event.type)
-        print("屏幕坐标：({},{}), 复平面坐标：({})".format(event.x, event.y, self.fractal.center(event)))
+        # print("屏幕坐标：({},{}), 复平面坐标：({})".format(event.x, event.y, self.fractal.center(event)))
         pass
 
     def zoom_in(self, event):
-        print('Tip: zoom_in')
         self.zoom_num += 1
         print('放大次数:', self.zoom_num)
         self.fractal.zoom_in(event)

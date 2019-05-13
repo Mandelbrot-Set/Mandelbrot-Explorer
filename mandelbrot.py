@@ -5,7 +5,7 @@ import opt
 
 
 class Mandelbrot:
-    def __init__(self, canvas_w, canvas_h, x=-0.75, y=0, m=1, iterations=None, w=None, h=None, zoom_factor=0.2,
+    def __init__(self, canvas_w, canvas_h, x=-0.75, y=0, m=1, iterations=None, w=None, h=None, zoom_factor=0.1,
                  color_palette=False, spec_set='J'):
         """
         初始化实例
@@ -39,12 +39,13 @@ class Mandelbrot:
         self.zoomFactor = zoom_factor
         self.yScaleFactor = self.h / canvas_h
         self.xScaleFactor = self.w / canvas_w
-        print(x, y, self.xDelta, self.yDelta, self.xCenter, self.yCenter)
-        print(
-               "初始复平面区域 ({},{},{},{})".format(self.xmin, self.ymin, self.xmax, self.ymax))
-        print("初始复平面区域 ({},{}), 迭代次数:{}".format(abs(self.xmin - self.xmax), abs(self.ymin - self.ymax),
-                                                self.iterations))
+
         print("图片尺寸:({},{}),画布尺寸:({},{})".format(self.w, self.h, canvas_w, canvas_h))
+        print("屏幕坐标：({},{}) ->复平面Center：({},{})".format(x, y, self.xCenter, self.yCenter))
+        print("系数:delta {} xDelta {} yDelta {} zoomFactor {})".format(self.delta, self.xDelta, self.yDelta, self.zoomFactor))
+        print("(xmin,xmax,ymin,ymax) ({},{},{},{})".format(self.xmin, self.xmax, self.ymin, self.ymax))
+        print("复平面区域 ({},{}), 迭代次数:{}".format(abs(self.xmin - self.xmax), abs(self.ymin - self.ymax), self.iterations))
+
         self.c, self.z = 0, 0
         self.pixels = []
         self.set_flag = spec_set
@@ -83,12 +84,13 @@ class Mandelbrot:
         self.ymax = self.yCenter + self.yDelta
         self.xmin = self.xCenter - self.xDelta
         self.ymin = self.yCenter - self.yDelta
-        self.w / abs(self.xmin - self.xmax)
+
         # 去一个合适的迭代次数
         # https://math.stackexchange.com/questions/16970/a-way-to-determine-the-ideal-number-of-maximum-iterations-for-an-arbitrary-zoom
         self.iterations = round(50 * (math.log(self.w / abs(self.xmin - self.xmax), 10) ** 1.25))
-        print("本次中心坐标 ({}, {}, {})".format(self.xCenter, self.yCenter, self.delta))
-        print("复平面区域 ({},{}), 迭代次数:{}".format(abs(self.xmin-self.xmax), abs(self.ymin-self.ymax), self.iterations))
+        print("系数:delta {} xDelta {} yDelta {} zoomFactor {})".format(self.delta, self.xDelta, self.yDelta, self.zoomFactor))
+        print("(xmin,xmax,ymin,ymax) ({},{},{},{})".format(self.xmin, self.xmax, self.ymin, self.ymax))
+        print("复平面区域 ({},{}), 迭代次数:{}".format(abs(self.xmin - self.xmax), abs(self.ymin - self.ymax), self.iterations))
 
     def get_color_pixels(self, flag):
         """
@@ -102,8 +104,10 @@ class Mandelbrot:
         pix = img.load()
 
         move_x, move_y = -0.7, 0.27015
-        print(0.9*self.delta)
+
         # 注意：delta在mandelbrot绘制中没有用到，仅用在了Julia集合绘制
+        # https://randomascii.wordpress.com/2011/08/13/faster-fractals-through-algebra/amp/ 优化函数体内的mandelbrot
+        # 减少乘法。
         opt.m_loop(self.w, self.h, self.delta, self.set_flag, flag, self.iterations, move_x, move_y,
                    self.pixels, pix, [self.xmin, self.xmax], [self.ymin, self.ymax])
 
