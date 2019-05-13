@@ -90,7 +90,7 @@ class Framework(Frame):
         start = time.time()
 
         if color_flag is True:
-            self.fractal.get_color_pixels(color_flag)
+            self.fractal.get_fractal(color_flag)
             print("get_color_pixels {} 秒".format(round(time.time() - start, 2)))
             start = time.time()
             self.draw_pixels()
@@ -99,7 +99,7 @@ class Framework(Frame):
             self.canvas.create_image(0, 0, image=self.background, anchor=NW)
             self.canvas.pack(fill=BOTH, expand=1)
         else:
-            self.img = self.fractal.get_color_pixels(color_flag)
+            self.img = self.fractal.get_fractal(color_flag)
             self.background = ImageTk.PhotoImage(self.img.resize((self.canvasW, self.canvasH)))
             self.canvas.create_image(0, 0, image=self.background, anchor=NW)
             self.canvas.pack(fill=BOTH, expand=1)
@@ -137,9 +137,7 @@ class Framework(Frame):
         pixels = self.img.load()  # create the pixel map
 
         opt.get_colors(pixels, self.fractal.pixels, self.palette)
-        # for index, p in enumerate(self.fractal.pixels):
-        #     pixels[int(p[0]), int(p[1])] = self.palette[p[2] % 256]
-        #
+
         if self.save:
             self.save_image(None)
         photo_img = ImageTk.PhotoImage(self.img.resize((self.canvasW, self.canvasH)))

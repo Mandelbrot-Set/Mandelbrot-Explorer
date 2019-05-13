@@ -1,17 +1,5 @@
 cimport cython
 
-cdef int get_escape_time(complex c, int iterations):
-    cdef:
-        complex z = c
-        int i
-
-    for i in range(1, iterations):
-        if z.real*z.real + z.imag*z.imag > 2:
-            return i
-        z = z * z + c
-
-    return 0
-
 cdef int mandelbrot(double creal, double cimag, int maxiter):
     cdef:
         double real2, imag2

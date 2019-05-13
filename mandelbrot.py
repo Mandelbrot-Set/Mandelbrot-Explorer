@@ -92,11 +92,11 @@ class Mandelbrot:
         print("(xmin,xmax,ymin,ymax) ({},{},{},{})".format(self.xmin, self.xmax, self.ymin, self.ymax))
         print("复平面区域 ({},{}), 迭代次数:{}".format(abs(self.xmin - self.xmax), abs(self.ymin - self.ymax), self.iterations))
 
-    def get_color_pixels(self, flag):
+    def get_fractal(self, flag):
         """
         每次渲染调用的函数，
         :param flag: 是否使用颜色模版的标记，True使用，False不使用
-        :return: 如果不使用模版，返回图片
+        :return: 如果不使用模版，返回图片, 传递参数中会更新 pix; 如果使用颜色模版会更新像素 pixels.
         """
 
         self.pixels = []
