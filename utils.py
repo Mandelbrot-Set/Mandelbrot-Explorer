@@ -48,7 +48,6 @@ def mandelbrot_set(xmin, xmax, ymin, ymax, width, height, maxiter):
     # opt.gen_data(xmin, xmax, ymin, ymax, width, height, cc)
     # # cc = gen_data(xmin, xmax, ymin, ymax, width, height)
     # c = cc.T
-
     re = np.linspace(xmin, xmax, width, dtype=np.float64)
     im = np.linspace(ymin, ymax, height, dtype=np.float64)
     c = re + im[:, None]*1j
