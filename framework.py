@@ -10,7 +10,7 @@ import opt
 
 
 class Framework(Frame):
-    def __init__(self, parent, h, x=-0.1, y=0, m=1, iterations=None, img_width=6000,
+    def __init__(self, parent, h, x=-0.75, y=0, m=1, iterations=None, img_width=6000,
                  img_height=4000, save=True, color_palette=False, spec_set='M'):
         Frame.__init__(self, parent)
         self.zoom_num = 0
