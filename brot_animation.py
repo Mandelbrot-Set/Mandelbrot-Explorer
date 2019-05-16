@@ -26,9 +26,9 @@ def gif(filename, array, fps=10, scale=1.0):
     return clip
 
 
-ImageWidth = 860
-ImageHeight = 480
-max_iterations = 400
+ImageWidth = 100
+ImageHeight = 60
+max_iterations = 300
 
 
 def clamp(x):
@@ -48,12 +48,12 @@ for i in range(256):
     b = clamp(int(256 * (0.5 * math.sin(blue_b * i + blue_c) + 0.5)))
     palette.append((r, g, b))
 
-n = 500
+n = 4
 cl = np.linspace(-.7, .7, n, dtype=np.float64)
 seqs = np.zeros([n] + [ImageHeight, ImageWidth] + [3])
 start = time.time()
 
-zoomFactor = 0.9
+zoomFactor = 0.4
 xDelta = 1.6
 yDelta = 1.
 delta = 1.
@@ -83,14 +83,37 @@ for i in range(n):
         print('exit.. limited arrived!')
         break
 
+    pixels_map = np.zeros([ImageWidth, ImageHeight])
+    print(pixels_map.shape)
     opt.m_loop(ImageWidth, ImageHeight, 1., 'M', True, max_iterations, 0, 0, pixels, [], [xmin, xmax], [ymin, ymax])
-    opt.get_colors(pix, pixels, palette)
 
-    seqs[i, :, :] = np.array(img)
+    if i is n-1:
+        for index, p in enumerate(pixels):
+            pixels_map[int(p[0]), int(p[1])] = int(p[2])
 
-current = round(time.time() - start, 2)
-print("执行时间 {} 秒".format(current))
-print('Make gif.....')
-gif('gif/mandelbrot_gif_{}.gif'.format(current), seqs, 8)
-print('Please check gif/julia_gif_.gif...')
+        for row in range(pixels_map.shape[0]):
+            str1 = ''
+            for col in range(pixels_map.shape[1]):
+                a = int(pixels_map[row][col])
+                if a is 0:
+                    str1 += '   '
+                elif 0 < a < 10:
+                    str1 += ' ' + str(a) + ' '
+                else:
+                    str1 += str(a) + ' '
+            print(str1)
+
+        # print(np.argmax(pixels_map))
+        re = np.where(pixels_map == np.max(pixels_map))
+        print(re[0][0], re[1][0], np.max(pixels_map))
+    # print(pixels_map.max())
+    # opt.get_colors(pix, pixels, palette)
+
+#     seqs[i, :, :] = np.array(img)
+#
+# current = round(time.time() - start, 2)
+# print("执行时间 {} 秒".format(current))
+# print('Make gif.....')
+# gif('gif/mandelbrot_gif_{}.gif'.format(current), seqs, 8)
+# print('Please check gif/julia_gif_.gif...')
 
