@@ -2,6 +2,7 @@
 output/
 __pycache__/
 build/
+gif/
 opt.c
 opt*.so
 *.gif
