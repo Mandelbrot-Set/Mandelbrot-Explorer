@@ -26,16 +26,17 @@
 2. 调整了交互的按键操作，避免鼠标点击按钮引起的卡顿
 3. 增加了鼠标位置监控事件
 
-## Usage
-1. Install required modules with `pip install -r requirements.txt`.
-2. Run the program with `python3 framework.py`
-3. Control+left-click the image where you want to zoom in
-4. Control+right-click the image to zoom out
-5. Left-click to change the image colour-palette
-6. Right-click to save the image
-7. Left-click drag to shit view
+## 用法
+1. 用 `pip install -r requirements.txt` 命令安装依赖库.
+2. 使用 `python setup.py build_ext --inplace` 编译 opt.pyx
+2. 使用 `python3 framework.py` 命令，运行程序
+3. Control+left-click 放大图形
+4. Control+right-click 缩小图形
+5. Left-click 换颜色模版
+6. Right-click 保存图形为png文件
+7. Left-click drag 移动图形
 
-## Commandline options
+## 命令行参数
     -h, --help               Command-line help dialogue.
     -i, --iterations         Number of iterations done for each pixel. Higher is more accurate but slower.
     -x                       The x-center coordinate of the frame.
@@ -47,7 +48,7 @@
     -c, --color_palette      Flag to use color palette.
     -spec_set                J for Julia, M for mandelbrot. default is M
 
-## Mandelbrot Set feature rendered by this program
+## 由本程序生成的Mandelbrot图片
 ![img](pictures/2019-05-12-08:06:18.png)
 ![img](pictures/2019-05-12-08:08:13.png)
 ![img](pictures/2019-05-12-08:08:47.png)
