@@ -3,11 +3,10 @@ import random
 import numpy as np
 from numba import jit, guvectorize, complex128, int32, double
 from PIL import Image
-import opt
 
 
-def get_image(n):
-    r, g, b = np.frompyfunc(get_color(), 1, 3)(n)
+def get_image(n, palette):
+    r, g, b = np.frompyfunc(get_color(palette), 1, 3)(n)
     img_array = np.dstack((r, g, b))
     return Image.fromarray(np.uint8(img_array * 255), mode='RGB')
 
@@ -33,8 +32,8 @@ def create_palette():
     return palette
 
 
-def get_color():
-    palette = create_palette()
+def get_color(palette):
+    # palette = create_palette()
 
     def color(i):
         return palette[i % 256]
@@ -43,11 +42,6 @@ def get_color():
 
 
 def mandelbrot_set(xmin, xmax, ymin, ymax, width, height, maxiter):
-    # 开始认为是生成数据有问题，所以尝试了其它生成数据的方式，但是看来不是
-    # cc = np.zeros((width, height), dtype=np.complex128)
-    # opt.gen_data(xmin, xmax, ymin, ymax, width, height, cc)
-    # # cc = gen_data(xmin, xmax, ymin, ymax, width, height)
-    # c = cc.T
     re = np.linspace(xmin, xmax, width, dtype=np.float64)
     im = np.linspace(ymin, ymax, height, dtype=np.float64)
     c = re + im[:, None]*1j
@@ -55,18 +49,6 @@ def mandelbrot_set(xmin, xmax, ymin, ymax, width, height, maxiter):
     n3 = mandelbrot_numpy(c, maxiter)
 
     return n3
-
-
-@jit(complex128[:](double, double, double, double, int32, int32))
-def gen_data(xmin, xmax, ymin, ymax, width, height):
-    cc = np.zeros((width, height), dtype=np.complex128)
-    for x in range(width):
-        for y in range(height):
-            re = translate(x, 0, width, xmin, xmax)
-            im = translate(y, 0, height, ymax, ymin)
-            cc[x][y] = complex(re, im)
-
-    return cc
 
 
 @jit(int32(complex128, int32))
@@ -87,21 +69,3 @@ def mandelbrot_numpy(c, maxit, output):
     maxiter = maxit[0]
     for i in range(c.shape[0]):
         output[i] = mandelbrot(c[i], maxiter)
-
-
-def translate(value, left_min, left_max, right_min, right_max):
-    """
-    是把canvas上的坐标值转化为复平面上对应的一个坐标值。鼠标点击屏幕后转换次序：
-    屏幕坐标->canvas坐标->复平面坐标。
-    :param value: 传入的需要转换的值
-    :param left_min: x方向最小值或y方向最大值
-    :param left_max: x方向最大值或y方向最小值
-    :param right_min: 当前迭代复平面x方向或y方向最小值
-    :param right_max: 当前迭代复平面x方向或y方向最大值
-    :return: 返回转换后的值
-    """
-    left_span = left_max - left_min
-    right_span = right_max - right_min
-    value_scaled = float(value - left_min) / float(left_span)
-
-    return right_min + (value_scaled * right_span)

@@ -99,13 +99,6 @@ class Mandelbrot:
         :return: 如果不使用模版，返回图片
         """
 
-        # self.pixels = []
-        # img = Image.new('RGB', (self.w, self.h), "black")
-        # pix = img.load()
-
-        move_x, move_y = -0.7, 0.27015
-        # print(0.9 * self.delta)
-
         self.n = mandelbrot_set(self.xmin, self.xmax, self.ymin, self.ymax, self.w, self.h, self.iterations)
 
         return get_image(self.n)
