@@ -1,6 +1,5 @@
 # coding: utf-8
 from utils import *
-from PIL import Image
 
 
 class Mandelbrot:

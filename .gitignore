@@ -4,4 +4,4 @@ __pycache__/
 build/
 opt.c
 opt*.so
-*.gif
+gif/
