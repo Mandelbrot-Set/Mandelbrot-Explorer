@@ -76,7 +76,7 @@ class Mandelbrot:
     def center(self, event):
         self.xCenter = translate(event.x * self.xScaleFactor, 0, self.w, self.xmin, self.xmax)
         self.yCenter = translate(event.y * self.yScaleFactor, self.h, 0, self.ymin, self.ymax)
-        print("屏幕坐标：({},{}) ->复平面Center：({},{})".format(event.x, event.y, self.xCenter, self.yCenter))
+        print("屏幕坐标：({},{}) ->复平面Center：[{}, {}]".format(event.x, event.y, self.xCenter, self.yCenter))
         return self.xCenter, self.yCenter
 
     def fuzhi(self):
