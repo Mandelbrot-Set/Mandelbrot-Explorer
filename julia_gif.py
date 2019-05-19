@@ -1,12 +1,13 @@
-import opt
+import math
+import os
+import random
+import time
+
 import numpy as np
 from PIL import Image
-import time
 from moviepy.editor import ImageSequenceClip
-import os
+
 import opt
-import math
-import random
 
 
 def gif(filename, array, fps=10, scale=1.0):
@@ -34,18 +35,9 @@ x_base = -1.7
 y_base = -1.0
 xmax, ymax = 25, 21
 
-# x_base = -0.7
-# y_base = 0.27015
-# xmax, ymax = 1, 1
-
 
 def clamp(x):
     return max(0, min(x, 255))
-
-# i = 5
-# while i > 0:
-#     i -= 1
-# print(i)
 
 
 palette = [(0, 0, 0)]
