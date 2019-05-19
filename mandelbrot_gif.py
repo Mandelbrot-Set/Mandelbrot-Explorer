@@ -19,6 +19,7 @@ def gif(filename, array, fps=10, scale=1.0):
     """
     fname, _ = os.path.splitext(filename)
     filename = fname + '.gif'
+    filename_v = fname + '.mp4'
 
     # copy into the color dimension if the images are black and white
     if array.ndim == 3:
@@ -26,6 +27,7 @@ def gif(filename, array, fps=10, scale=1.0):
 
     clip = ImageSequenceClip(list(array), fps=fps).resize(scale)
     clip.write_gif(filename, fps=fps)
+    clip.write_videofile(filename_v, fps=fps)
 
     return clip
 
@@ -131,8 +133,8 @@ def seg_mov(start, end, frames=8, zoom_factor=0.1, delta=None):
 
 
 ##############################################################################
-ImageWidth = 1080
-ImageHeight = 768
+ImageWidth = 1920
+ImageHeight = 1080
 
 palette = get_palette()
 
@@ -162,7 +164,7 @@ for index in range(size):
     print("{}/{}: {} {} ".format(index+1, size, pt_list[index], pt_list[index+1]))
     seqs, the_delta = seg_mov(pt_list[index],
                               pt_list[index+1],
-                              frames=50,
+                              frames=60,
                               zoom_factor=.1,
                               delta=the_delta)
     seqs_list.append(seqs)

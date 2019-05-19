@@ -14,6 +14,7 @@ def gif(filename, array, fps=10, scale=1.0):
     # ensure that the file has the .gif extension
     fname, _ = os.path.splitext(filename)
     filename = fname + '.gif'
+    filename_v = fname + '.mp4'
 
     # copy into the color dimension if the images are black and white
     if array.ndim == 3:
@@ -22,6 +23,7 @@ def gif(filename, array, fps=10, scale=1.0):
     # make the moviepy clip
     clip = ImageSequenceClip(list(array), fps=fps).resize(scale)
     clip.write_gif(filename, fps=fps)
+    clip.write_videofile(filename_v, fps=fps)
 
     return clip
 
@@ -79,5 +81,5 @@ for x in range(xmax):
 current = round(time.time() - start, 2)
 print("执行时间 {} 秒".format(current))
 print('Make gif.....')
-gif('julia_gif_{}.gif'.format(current), seqs, 4)
+gif('gif/julia_gif_{}.gif'.format(current), seqs, 4)
 print('Please check julia_gif.gif...')
