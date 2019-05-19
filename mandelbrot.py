@@ -22,7 +22,7 @@ class Mandelbrot:
         :param spec_set: 指定画Julia还是mandelbrot, M or J
         """
         self.w, self.h = (round(canvas_w * 0.9), round(canvas_h * 0.9)) if None in {w, h} else w, h
-        self.iterations = 400 if iterations is None else iterations
+        self.iterations = 448 if iterations is None else iterations
         self.xCenter, self.yCenter = x, y
         if canvas_w > canvas_h:
             self.xDelta = m / (canvas_h / canvas_w)

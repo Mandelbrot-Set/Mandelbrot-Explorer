@@ -50,8 +50,8 @@ class Framework(Frame):
 
     def mouse_pos(self, event):
         # print("鼠标状态：", event.type)
-        print("屏幕坐标：({},{}), 复平面坐标：({})".format(event.x, event.y, self.fractal.center(event)))
-        # pass
+        # print("屏幕坐标：({},{}), 复平面坐标：({})".format(event.x, event.y, self.fractal.center(event)))
+        pass
 
     def zoom_in(self, event):
         self.zoom_num += 1
@@ -163,7 +163,7 @@ def main():
     parser.add_argument('-wi', '--width', type=int, help='The width of the image.')
     parser.add_argument('-he', '--height', type=int, help='The width of the image.')
     parser.add_argument('-s', '--save', action='store_true', help='Save the generated image.')
-    parser.add_argument('-c', '--color_palette', action='store_false', help="if color palette is used.")
+    parser.add_argument('-c', '--color_palette', action='store_true', help="if color palette is used.")
     parser.add_argument('-spec_set', type=str, help='J for Julia, M for mandelbrot. default is M')
     args = parser.parse_args()
     if None not in [args.x, args.y, args.magnification]:

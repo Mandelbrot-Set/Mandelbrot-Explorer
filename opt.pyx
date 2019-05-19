@@ -1,4 +1,5 @@
 cimport cython
+import math
 
 cdef int mandelbrot(double creal, double cimag, int maxiter):
     cdef:
@@ -45,6 +46,42 @@ cpdef get_colors(pixels_map, pixels, palette):
     for index, p in enumerate(pixels):
         pixels_map[int(p[0]), int(p[1])] = palette[p[2] % 256]
 
+
+cdef render_color(int e_i, int iterations):
+    cdef:
+        int rgb_increments, case_num, remain_num, value
+
+    if e_i <= 2:
+        return 0, 0, 0
+    elif e_i == iterations-1:
+        return 0, 25, 0
+
+    rgb_increments = math.floor((iterations / 7))
+    case_num = math.floor(e_i / rgb_increments)
+    remain_num = e_i % rgb_increments
+    value = math.floor(256 / rgb_increments) * remain_num
+
+    if case_num == 0:
+        return 0, value, 0
+
+    if case_num == 1:
+        return 0, 255, value
+
+    if case_num == 2:
+        return value, 255, 255
+
+    if case_num == 3:
+        return value, 0, 255
+
+    if case_num == 4:
+        return 255, value, 255
+
+    if case_num == 5:
+        return 255, value, 0
+
+    if case_num == 6:
+        return 255, 255, value
+
 @cython.boundscheck(False)
 @cython.wraparound(False)
 cpdef m_loop(int w, int h, double delta, set_flag, flag, int iterations,
@@ -71,4 +108,5 @@ cpdef m_loop(int w, int h, double delta, set_flag, flag, int iterations,
             if flag:
                 pixels.append((x, y, i))
             else:
+                # pix[x, y] = render_color(i, iterations)
                 pix[x, y] = (i << 21) + (i << 10) + i * 8
