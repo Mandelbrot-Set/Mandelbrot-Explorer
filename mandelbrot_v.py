@@ -1,8 +1,6 @@
 import os
 import time
-
 from moviepy.editor import ImageSequenceClip
-
 from utils import *
 
 
@@ -27,31 +25,6 @@ def gif(filename, array, fps=10, scale=1.0):
     clip.write_videofile(filename_v, fps=fps)
 
     return clip
-
-
-def clamp(x):
-    return max(0, min(x, 255))
-
-
-def get_palette():
-    """
-    产生一个颜色模版
-    :return: 返回颜色模版
-    """
-    palette = [(0, 0, 0)]
-    red_b = 2 * math.pi / (random.randint(0, 128) + 128)
-    red_c = 256 * random.random()
-    green_b = 2 * math.pi / (random.randint(0, 128) + 128)
-    green_c = 256 * random.random()
-    blue_b = 2 * math.pi / (random.randint(0, 128) + 128)
-    blue_c = 256 * random.random()
-    for i in range(256):
-        r = clamp(int(256 * (0.5 * math.sin(red_b * i + red_c) + 0.5)))
-        g = clamp(int(256 * (0.5 * math.sin(green_b * i + green_c) + 0.5)))
-        b = clamp(int(256 * (0.5 * math.sin(blue_b * i + blue_c) + 0.5)))
-        palette.append((r, g, b))
-
-    return palette
 
 
 def get_region(start, end, frames=8, zoom_factor=0.1, delta=None):
@@ -128,7 +101,7 @@ def seg_mov(start, end, frames=8, zoom_factor=0.1, delta=None):
 ImageWidth = 1920
 ImageHeight = 1080
 
-palette = get_palette()
+palette = create_palette()
 
 start_time = time.time()
 

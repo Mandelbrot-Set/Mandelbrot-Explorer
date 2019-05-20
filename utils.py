@@ -5,6 +5,24 @@ from numba import jit, guvectorize, complex128, int32, double
 from PIL import Image
 
 
+def translate(value, left_min, left_max, right_min, right_max):
+    """
+    是把canvas上的坐标值转化为复平面上对应的一个坐标值。鼠标点击屏幕后转换次序：
+    屏幕坐标->canvas坐标->复平面坐标。
+    :param value: 传入的需要转换的值
+    :param left_min: x方向最小值或y方向最大值
+    :param left_max: x方向最大值或y方向最小值
+    :param right_min: 当前迭代复平面x方向或y方向最小值
+    :param right_max: 当前迭代复平面x方向或y方向最大值
+    :return: 返回转换后的值
+    """
+    left_span = left_max - left_min
+    right_span = right_max - right_min
+    value_scaled = float(value - left_min) / float(left_span)
+
+    return right_min + (value_scaled * right_span)
+
+
 def get_image(n, palette):
     r, g, b = np.frompyfunc(get_color(palette), 1, 3)(n)
     img_array = np.dstack((r, g, b))

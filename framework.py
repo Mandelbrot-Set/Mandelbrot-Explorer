@@ -2,7 +2,7 @@
 import argparse
 import time
 from tkinter import *
-from PIL import Image, ImageTk
+from PIL import ImageTk
 from mandelbrot import Mandelbrot
 from utils import *
 
