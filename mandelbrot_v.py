@@ -130,7 +130,7 @@ for index in range(size):
     print("{}/{}: {} {} ".format(index+1, size, pt_list[index], pt_list[index+1]))
     seqs, the_delta = seg_mov(pt_list[index],
                               pt_list[index+1],
-                              frames=20,
+                              frames=60,
                               zoom_factor=.1,
                               delta=the_delta)
     seqs_list.append(seqs)
