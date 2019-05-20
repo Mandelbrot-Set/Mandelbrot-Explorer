@@ -23,8 +23,11 @@ def translate(value, left_min, left_max, right_min, right_max):
     return right_min + (value_scaled * right_span)
 
 
-def get_image(n, palette):
-    r, g, b = np.frompyfunc(get_color(palette), 1, 3)(n)
+def get_image(n, palette=None):
+    if palette is None:
+        r, g, b = np.frompyfunc(get_color(create_palette()), 1, 3)(n)
+    else:
+        r, g, b = np.frompyfunc(get_color(palette), 1, 3)(n)
     img_array = np.dstack((r, g, b))
     return Image.fromarray(np.uint8(img_array * 255), mode='RGB')
 
@@ -66,6 +69,11 @@ def mandelbrot_set(xmin, xmax, ymin, ymax, width, height, maxiter):
 
     n3 = mandelbrot_numpy(c, maxiter)
 
+    # To handle row exchange issue.
+    rows, row = n3.shape[0], math.floor(n3.shape[0]/2)
+    for i in range(row):
+        n3[[i, rows - 1 - i], :] = n3[[rows - 1 - i, i], :]
+
     return n3
 
 
@@ -87,3 +95,4 @@ def mandelbrot_numpy(c, maxit, output):
     maxiter = maxit[0]
     for i in range(c.shape[0]):
         output[i] = mandelbrot(c[i], maxiter)
+

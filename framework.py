@@ -47,7 +47,7 @@ class Framework(Frame):
 
     def mouse_pos(self, event):
         # print("鼠标状态：", event.type)
-        print("屏幕坐标：({},{}), 复平面坐标：({})".format(event.x, event.y, self.fractal.center(event)))
+        # print("屏幕坐标：({},{}), 复平面坐标：({})".format(event.x, event.y, self.fractal.center(event)))
         pass
 
     def zoom_in(self, event):
@@ -128,4 +128,6 @@ def main():
     master.geometry("{}x{}".format(render.canvasW, render.canvasH))
     master.mainloop()
 
+
 main()
+
