@@ -1,3 +1,5 @@
+这个分支是对进一步优化性能做的，主要使用numbia 的向量运算优化曼德波迭代的性能，除去了使用cython
+
 # 交互式Mandelbrot程序
 包含两部分内容：
 
@@ -22,11 +24,9 @@
 # 性能优化
 1、使用 guvectorize 进一步优化性能
 
-2、采用Cython优化迭代部分代码，性能提高了10倍， 并暂时取消了多进程方式，也许多进程方式使用不当，反而不及不用多进程方式
+2、增加了朱丽亚集合的绘制，同样进行了迭代的优化
 
-3、增加了朱丽亚集合的绘制，同样进行了迭代的优化
-
-4、初步优化了对颜色对处理
+3、初步优化了对颜色对处理
 
 # 问题修复
 1. 调整了窗口大小
@@ -35,7 +35,6 @@
 
 ## 用法
 1. 用 `pip install -r requirements.txt` 命令安装依赖库.
-2. 使用 `python setup.py build_ext --inplace` 编译 opt.pyx
 2. 使用 `python3 framework.py` 命令，运行程序
 3. Control+left-click 放大图形
 4. Control+right-click 缩小图形
