@@ -20,7 +20,7 @@ def gif(filename, array, fps=10, scale=1.0):
     if array.ndim == 3:
         array = array[..., np.newaxis] * np.ones(3)
 
-    clip = ImageSequenceClip(list(array), fps=fps).resize(scale)
+    clip = ImageSequenceClip(list(array), fps=fps)  # .resize(scale)
     # clip.write_gif(filename, fps=fps)
     clip.write_videofile(filename_v, fps=fps)
 
