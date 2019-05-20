@@ -44,8 +44,6 @@ class Mandelbrot:
         print("xmin {} xmax {} ymin {}, ymax {} )".format(self.xmin, self.xmax, self.ymin, self.ymax))
         print("复平面区域 ({},{}), 迭代次数:{}".format(abs(self.xmin - self.xmax), abs(self.ymin - self.ymax), self.iterations))
 
-        # self.c, self.z = 0, 0
-        # self.pixels = []
         self.set_flag = spec_set
         self.n = None
         self.palette = create_palette()
@@ -85,7 +83,7 @@ class Mandelbrot:
         self.ymax = self.yCenter + self.yDelta
         self.xmin = self.xCenter - self.xDelta
         self.ymin = self.yCenter - self.yDelta
-        # self.w / abs(self.xmin - self.xmax)
+
         # 去一个合适的迭代次数
         # https://math.stackexchange.com/questions/16970/a-way-to-determine-the-ideal-number-of-maximum-iterations-for-an-arbitrary-zoom
         self.iterations = round(50 * (math.log(self.w / abs(self.xmin - self.xmax), 10) ** 1.25))

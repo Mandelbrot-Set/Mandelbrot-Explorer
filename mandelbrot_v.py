@@ -4,7 +4,7 @@ from moviepy.editor import ImageSequenceClip
 from utils import *
 
 
-def gif(filename, array, fps=10, scale=1.0):
+def gif(filename, array, fps=10):
     """
     :param filename: 文件名
     :param array: 序列数组
@@ -20,7 +20,7 @@ def gif(filename, array, fps=10, scale=1.0):
     if array.ndim == 3:
         array = array[..., np.newaxis] * np.ones(3)
 
-    clip = ImageSequenceClip(list(array), fps=fps)  # .resize(scale)
+    clip = ImageSequenceClip(list(array), fps=fps)
     # clip.write_gif(filename, fps=fps)
     clip.write_videofile(filename_v, fps=fps)
 
@@ -59,9 +59,11 @@ def get_region(start, end, frames=8, zoom_factor=0.1, delta=None):
     return [k, x_delta], [abs(scale_x/2), abs(scale_y/2)], [sx_min, sx_max, sy_min, sy_max]
 
 
-def seg_mov(start, end, frames=8, zoom_factor=0.1, delta=None):
+def seg_mov(start, end, frames=8, zoom_factor=0.1, delta=None, iterations=None, index=0):
     """
     计算由起点到止点点图形序列
+    :param seqs:
+    :param iterations:
     :param start: 起点坐标
     :param end: 止点坐标
     :param frames: 从起点到止点打算走的步数，每一步都回绘制一个图，一张图即一帧，所以也叫 总帧数
@@ -72,7 +74,6 @@ def seg_mov(start, end, frames=8, zoom_factor=0.1, delta=None):
     xc, yc = start[0], start[1]
     kd, scale, sr = get_region(start, end, frames, zoom_factor, delta)
 
-    seqs = np.zeros([frames] + [ImageHeight, ImageWidth] + [3])
     for i in range(frames):
         sr[0] += scale[0]
         sr[1] -= scale[0]
@@ -84,7 +85,9 @@ def seg_mov(start, end, frames=8, zoom_factor=0.1, delta=None):
 
         xmin, xmax = sr[0] + xc - start[0], sr[1] + xc - start[0]
         ymin, ymax = sr[2] + yc - start[1], sr[3] + yc - start[1]
-        iterations = round(50 * (math.log(ImageWidth / abs(xmin - xmax), 10) ** 1.25))
+
+        if iterations is None:
+            iterations = round(50*(math.log(ImageWidth/abs(xmin-xmax), 10) ** 1.25))
 
         # print("目标中心位置：", xc, yc)
         # print("迭代区域：", xmin, xmax, ymin, ymax)
@@ -93,9 +96,9 @@ def seg_mov(start, end, frames=8, zoom_factor=0.1, delta=None):
 
         n = mandelbrot_set(xmin, xmax, ymin, ymax, ImageWidth, ImageHeight, iterations)
         img = get_image(n, palette)
-        seqs[i, :, :] = np.array(img)
+        seqs[i + index * frames, :, :] = np.array(img)
 
-    return seqs, delta
+    return delta
 
 
 ##############################################################################
@@ -124,20 +127,32 @@ pt_list = [
     [-0.5446058250222997, 0.6180743353749587]
     ]
 
-seqs_list = []
+# seqs_list = []
 size = len(pt_list)-1
+max_iteration = 500
+max_frames = 60
+seqs = np.zeros([max_frames*size] + [ImageHeight, ImageWidth] + [3])
 for index in range(size):
+    start_i = time.time()
     print("{}/{}: {} {} ".format(index+1, size, pt_list[index], pt_list[index+1]))
-    seqs, the_delta = seg_mov(pt_list[index],
-                              pt_list[index+1],
-                              frames=60,
-                              zoom_factor=.1,
-                              delta=the_delta)
-    seqs_list.append(seqs)
+    the_delta = seg_mov(pt_list[index],
+                        pt_list[index+1],
+                        frames=max_frames,
+                        zoom_factor=.1,
+                        delta=the_delta,
+                        iterations=max_iteration,
+                        index=index
+                        )
+    # seqs_list.append(seqs)
+    print("第{}次迭代执行时间 {} 秒".format(index+1, round(time.time() - start_i, 2)))
 
 current = round((time.time() - start_time)/60, 2)
 print("执行时间 {} 分".format(current))
-print('Make gif.....')
-seqs_all = np.vstack(seqs_list)
-gif('gif/mandelbrot_gif_{}.gif'.format(current), seqs_all, 8)
-print('Please check gif/julia_gif_.gif...')
+
+# start_x = time.time()
+# seqs_all = np.vstack(seqs_list)
+# print("执行时间 {} 秒, 生成视频.....".format(round(time.time() - start_x, 2)))
+
+start_x = time.time()
+gif('gif/mandelbrot_gif_{}.gif'.format(current), seqs, 8)
+print('执行时间 {} 分, 请检查gif/mandelbrot_gif_{}.gif'.format(round((time.time() - start_x)/60, 2), current))
