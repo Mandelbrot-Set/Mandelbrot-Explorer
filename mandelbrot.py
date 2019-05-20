@@ -48,6 +48,7 @@ class Mandelbrot:
         # self.pixels = []
         self.set_flag = spec_set
         self.n = None
+        self.palette = create_palette()
 
     def shift_view(self, event):
         self.center(event)
@@ -101,4 +102,4 @@ class Mandelbrot:
 
         self.n = mandelbrot_set(self.xmin, self.xmax, self.ymin, self.ymax, self.w, self.h, self.iterations)
 
-        return get_image(self.n)
+        return get_image(self.n, self.palette)
