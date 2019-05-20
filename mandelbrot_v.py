@@ -30,7 +30,8 @@ def gif(filename, array, fps=10, scale=1.0):
 def get_region(start, end, frames=8, zoom_factor=0.1, delta=None):
     """
     在走frames步的情况下，计算出从起点到止点： x方向步长以及斜率；
-    在zoom_factor和delta确定情况下（即确定的起点和止点为中心的方形区域），算出 起点为中心方形区域 移动 止点方形区域：x, y方向每步缩放比例
+    在zoom_factor和delta确定情况下（即确定的起点和止点为中心的方形区域），算出 起点为中心方形区域
+    移动 止点方形区域：x, y方向每步缩放比例
     :param start: 起点坐标
     :param end: 止点坐标
     :param frames: 从起点到止点打算走的步数，每一步都回绘制一个图，一张图即一帧，所以也叫 总帧数
