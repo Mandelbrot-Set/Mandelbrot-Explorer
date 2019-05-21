@@ -5,8 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/Mandelbrot-set-explorer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Mandelbrot-set-explorer.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mandelbrot.py" beforeDir="false" afterPath="$PROJECT_DIR$/mandelbrot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mandelbrot_v.py" beforeDir="false" afterPath="$PROJECT_DIR$/mandelbrot_v.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mandelbrot_plotly.py" beforeDir="false" afterPath="$PROJECT_DIR$/mandelbrot_plotly.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,11 +15,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mandelbrot_v.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="93">
-              <caret line="93" column="23" selection-start-line="93" selection-start-column="23" selection-end-line="93" selection-end-column="23" />
+            <state relative-caret-position="1133">
+              <caret line="144" column="25" lean-forward="true" selection-start-line="144" selection-start-column="25" selection-end-line="144" selection-end-column="25" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -29,34 +28,25 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="FIRST">
-              <first_editor relative-caret-position="336">
-                <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/framework.py">
+        <entry file="file://$PROJECT_DIR$/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="104">
-              <caret line="91" column="66" selection-start-line="91" selection-start-column="8" selection-end-line="91" selection-end-column="66" />
+            <state relative-caret-position="108">
+              <caret line="64" selection-start-line="64" selection-end-line="76" selection-end-column="13" />
               <folding>
-                <element signature="e#16#31#0" expanded="true" />
+                <element signature="e#0#11#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mandelbrot.py">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mandelbrot_plotly.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-757">
-              <caret line="22" column="67" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="67" />
+            <state relative-caret-position="382">
+              <caret line="169" column="19" lean-forward="true" selection-start-line="169" selection-start-column="19" selection-end-line="169" selection-end-column="19" />
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -108,17 +98,17 @@
         <option value="$PROJECT_DIR$/opt.pyx" />
         <option value="$PROJECT_DIR$/julia_range.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/mandelbrot_plotly.py" />
         <option value="$PROJECT_DIR$/framework.py" />
-        <option value="$PROJECT_DIR$/utils.py" />
         <option value="$PROJECT_DIR$/mandelbrot.py" />
         <option value="$PROJECT_DIR$/mandelbrot_v.py" />
+        <option value="$PROJECT_DIR$/utils.py" />
+        <option value="$PROJECT_DIR$/mandelbrot_plotly.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1023" />
-    <option name="y" value="39" />
+    <option name="x" value="304" />
+    <option name="y" value="23" />
     <option name="width" value="1245" />
     <option name="height" value="877" />
   </component>
@@ -169,7 +159,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.mandelbrot_v">
+  <component name="RunManager" selected="Python.mandelbrot_plotly">
     <configuration name="framework" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Mandelbrot-set-explorer" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -282,9 +272,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.mandelbrot_v" />
-        <item itemvalue="Python.framework" />
         <item itemvalue="Python.mandelbrot_plotly" />
+        <item itemvalue="Python.framework" />
+        <item itemvalue="Python.mandelbrot_v" />
         <item itemvalue="Python.utils" />
         <item itemvalue="Python.mandelbrot" />
       </list>
@@ -335,6 +325,10 @@
       <workItem from="1558341079157" duration="515000" />
       <workItem from="1558349464580" duration="8000" />
       <workItem from="1558350967401" duration="4434000" />
+      <workItem from="1558402214036" duration="460000" />
+      <workItem from="1558406443160" duration="4364000" />
+      <workItem from="1558423289552" duration="1553000" />
+      <workItem from="1558430683107" duration="1065000" />
     </task>
     <task id="LOCAL-00001" summary="refined">
       <created>1557585482883</created>
@@ -361,17 +355,17 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="134569000" />
+    <option name="totallyTimeSpent" value="142011000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="675" y="71" width="1245" height="877" extended-state="0" />
+    <frame x="91" y="23" width="1245" height="877" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21565363" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22859518" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32962963" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49965495" visible="true" weight="0.73490816" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49965495" visible="true" weight="0.38057742" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4638404" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -399,14 +393,14 @@
     <option name="LAST_COMMIT_MESSAGE" value="refined" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Mandelbrot_set_explorer$Julia.coverage" NAME="Julia Coverage Results" MODIFIED="1557277263772" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Mandelbrot_set_explorer$framework.coverage" NAME="framework Coverage Results" MODIFIED="1558334827080" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Mandelbrot_set_explorer$mandelbrot_plotly.coverage" NAME="mandelbrot_plotly Coverage Results" MODIFIED="1558323278956" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Mandelbrot_set_explorer$test.coverage" NAME="test Coverage Results" MODIFIED="1557207397554" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Mandelbrot_set_explorer$utils.coverage" NAME="utils Coverage Results" MODIFIED="1557721256233" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Mandelbrot_set_explorer$julia_range.coverage" NAME="julia_range Coverage Results" MODIFIED="1557577461418" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Mandelbrot_set_explorer$mandelbrot.coverage" NAME="mandelbrot Coverage Results" MODIFIED="1557658184391" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Mandelbrot_set_explorer$mandelbrot_v.coverage" NAME="mandelbrot_v Coverage Results" MODIFIED="1558359450072" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Mandelbrot_set_explorer$julia_range.coverage" NAME="julia_range Coverage Results" MODIFIED="1557577461418" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Mandelbrot_set_explorer$mandelbrot_plotly.coverage" NAME="mandelbrot_plotly Coverage Results" MODIFIED="1558431761382" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Mandelbrot_set_explorer$utils.coverage" NAME="utils Coverage Results" MODIFIED="1557721256233" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Mandelbrot_set_explorer$mandelbrot.coverage" NAME="mandelbrot Coverage Results" MODIFIED="1557658184391" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Mandelbrot_set_explorer$framework.coverage" NAME="framework Coverage Results" MODIFIED="1558408021532" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Mandelbrot_set_explorer$Julia.coverage" NAME="Julia Coverage Results" MODIFIED="1557277263772" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/2019-05-11-17:38:20_0.36_-1.5_-0.1.png" />
@@ -452,7 +446,6 @@
     <entry file="file://$PROJECT_DIR$/requirements.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/../tfenv/lib/python3.6/site-packages/numba/npyufunc/decorators.py" />
     <entry file="file://$PROJECT_DIR$/julia_range.py" />
     <entry file="file://$PROJECT_DIR$/Julia.py" />
     <entry file="file://$PROJECT_DIR$/.gitignore">
@@ -464,23 +457,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/setup.py" />
     <entry file="file://$PROJECT_DIR$/opt.pyx" />
-    <entry file="file://$PROJECT_DIR$/mandelbrot_plotly.py">
+    <entry file="file://$PROJECT_DIR$/../tfenv/lib/python3.6/site-packages/numba/npyufunc/decorators.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1738">
-          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="71" column="35" lean-forward="true" selection-start-line="71" selection-start-column="35" selection-end-line="71" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="1920">
+          <caret line="127" column="4" selection-start-line="127" selection-start-column="4" selection-end-line="127" selection-end-column="4" />
         </state>
       </provider>
     </entry>
@@ -496,8 +476,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/framework.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="91" column="66" selection-start-line="91" selection-start-column="8" selection-end-line="91" selection-end-column="66" />
+        <state relative-caret-position="1296">
+          <caret line="86" column="16" selection-start-line="86" selection-start-column="16" selection-end-line="86" selection-end-column="16" />
           <folding>
             <element signature="e#16#31#0" expanded="true" />
           </folding>
@@ -506,17 +486,37 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mandelbrot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-757">
-          <caret line="22" column="67" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="67" />
+        <state relative-caret-position="1600">
+          <caret line="100" column="26" selection-start-line="100" selection-start-column="26" selection-end-line="100" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mandelbrot_v.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="93">
-          <caret line="93" column="23" selection-start-line="93" selection-start-column="23" selection-end-line="93" selection-end-column="23" />
+        <state relative-caret-position="1133">
+          <caret line="144" column="25" lean-forward="true" selection-start-line="144" selection-start-column="25" selection-end-line="144" selection-end-column="25" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="64" selection-start-line="64" selection-end-line="76" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mandelbrot_plotly.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="382">
+          <caret line="169" column="19" lean-forward="true" selection-start-line="169" selection-start-column="19" selection-end-line="169" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
