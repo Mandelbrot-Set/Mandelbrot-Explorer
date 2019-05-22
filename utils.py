@@ -29,6 +29,7 @@ def get_image(n, palette=None):
     else:
         r, g, b = np.frompyfunc(get_color(palette), 1, 3)(n)
     img_array = np.dstack((r, g, b))
+    # return Image.fromarray(np.uint8(img_array * 255), mode='RGB')
     return Image.fromarray(np.uint8(img_array * 255), mode='RGB')
 
 
@@ -54,10 +55,10 @@ def create_palette():
 
 
 def get_color(palette):
-    # palette = create_palette()
+    colours = len(palette)
 
     def color(i):
-        return palette[i % 256]
+        return palette[i % colours]
 
     return color
 
